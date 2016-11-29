@@ -1,0 +1,6 @@
+<pane>
+	<resources></resources>
+	<widgets>
+		<item type="image" id="background" />
+	</widgets>
+</pane>
