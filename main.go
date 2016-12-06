@@ -13,11 +13,23 @@ func main() {
 		log.Fatal(err)
 	}
 
-	v := &Tag{}
-	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&v)
+	root := &Tag{}
+	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 
-	log.Println(v.Name)
-	log.Println(v.Attr)
-	log.Println(v.Children)
+	parse(root)
+}
 
+func parse(t *Tag) {
+	log.Println(t.Name)
+	log.Println(t.Attr)
+	for _, v := range t.Children {
+		switch v.(type) {
+		case *Tag:
+			parse(v.(*Tag))
+		case xml.CharData:
+			//log.Println(string(v.(xml.CharData)))
+		case xml.Comment:
+			//log.Println(string(v.(xml.Comment)))
+		}
+	}
 }

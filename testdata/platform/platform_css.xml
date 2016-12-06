@@ -1,3 +1,6 @@
 <styles>
 	<item type="image" id="background" w="800" h="416" imageurl="@DNA/common/bg.png"/>
+	<item type="image2" id="background" w="800" h="416" imageurl="@DNA/common/bg.png"/>
+	<!-- All comments are ignored -->
+	All texts are ignored
 </styles>
