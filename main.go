@@ -7,12 +7,16 @@ import (
 	"log"
 )
 
+var settings map[string]*Tag
+
 func main() {
+	settings = map[string]*Tag{}
 	readCSS("./testdata/platform/platform_css.xml")
 	readCSS("./testdata/platform/project/project_css.xml")
 }
 
 func readCSS(path string) {
+	log.Println("Read File:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
@@ -20,7 +24,41 @@ func readCSS(path string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	parse(root)
+	parseSettings(root)
+	log.Println(settings)
+}
+
+func parseSettings(t *Tag) {
+	var key, itemType, selector string
+
+	log.Println(t.Name.Local)
+	for _, a := range t.Attr {
+		switch a.Name.Local {
+		case "type":
+			itemType = a.Value
+		case "id":
+			selector = "#" + a.Value
+		case "class":
+			selector = "." + a.Value
+		}
+	}
+	if itemType != "" && selector != "" {
+		key = itemType + selector
+	}
+	if key != "" {
+		settings[key] = t
+	}
+
+	for _, v := range t.Children {
+		switch v.(type) {
+		case *Tag:
+			parseSettings(v.(*Tag))
+		case xml.CharData:
+			//log.Println(string(v.(xml.CharData)))
+		case xml.Comment:
+			//log.Println(string(v.(xml.Comment)))
+		}
+	}
 }
 
 func parse(t *Tag) {

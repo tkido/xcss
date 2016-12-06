@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/xml"
 	"io"
 )
@@ -12,7 +13,7 @@ type Tag struct {
 	Children []interface{}
 }
 
-// MarshalXML to Tag from XML
+// MarshalXML to XML from Tag
 func (t *Tag) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name = t.Name
 	start.Attr = t.Attr
@@ -34,7 +35,7 @@ func (t *Tag) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	return nil
 }
 
-// UnmarshalXML to XML from Tag
+// UnmarshalXML to Tag from XML
 func (t *Tag) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	t.Name = start.Name
 	t.Attr = start.Attr
@@ -60,4 +61,11 @@ func (t *Tag) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			t.Children = append(t.Children, token.(xml.Comment).Copy())
 		}
 	}
+}
+
+//String
+func (t *Tag) String() string {
+	buf := new(bytes.Buffer)
+	xml.NewEncoder(buf).Encode(t)
+	return buf.String()
 }
