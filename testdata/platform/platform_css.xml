@@ -1,6 +1,9 @@
 <styles>
-	<item type="image" id="background" w="800" h="416" imageurl="@DNA/common/bg.png"/>
-	<item type="image2" id="background" w="800" h="416" imageurl="@DNA/common/bg.png"/>
+	<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
+	<item type="text" class="day" fontcolor="BLACK"/>
+	<item type="text" class="night" fontcolor="WHITE"/>
+	<item type="text" id="title" fontsize="L" x="0"/>
+
 	<!-- All comments are ignored -->
 	All texts are ignored
 </styles>

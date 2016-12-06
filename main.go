@@ -8,14 +8,18 @@ import (
 )
 
 func main() {
-	bs, err := ioutil.ReadFile("./testdata/platform/platform_css.xml")
+	readCSS("./testdata/platform/platform_css.xml")
+	readCSS("./testdata/platform/project/project_css.xml")
+}
+
+func readCSS(path string) {
+	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-
 	parse(root)
 }
 
