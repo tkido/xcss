@@ -20,8 +20,13 @@ func main() {
 }
 
 func parse(t *Tag) {
-	log.Println(t.Name)
-	log.Println(t.Attr)
+	log.Println(t.Name.Local)
+
+	for _, a := range t.Attr {
+		log.Println(a.Name.Local)
+		log.Println(a.Value)
+	}
+
 	for _, v := range t.Children {
 		switch v.(type) {
 		case *Tag:
