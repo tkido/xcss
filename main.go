@@ -3,25 +3,18 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
+	"io/ioutil"
 	"log"
-	"os"
-	"time"
 )
 
-const s = `<styles>
-	<item type="image" id="background" w="800" h="416" imageurl="@DNA/common/bg.png"/>
-</styles>
-`
-
 func main() {
-	f, err := os.Create(time.Now().Format("log/2006_0102_1504_05.log"))
+	bs, err := ioutil.ReadFile("./testdata/platform/platform_css.xml")
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
-	log.SetOutput(f)
 
 	v := &Tag{}
-	xml.NewDecoder(bytes.NewBuffer([]byte(s))).Decode(&v)
+	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&v)
 
 	log.Println(v.Name)
 	log.Println(v.Attr)
