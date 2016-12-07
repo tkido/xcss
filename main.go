@@ -8,7 +8,8 @@ import (
 var sets Settings
 
 func main() {
-	log.Println(comb(5))
+	classes := []string{"bar", "foo", "hoge"}
+	log.Println(comb(classes))
 
 	sets = Settings{}
 	readCSS("./testdata/platform/platform_css.xml")
@@ -16,13 +17,9 @@ func main() {
 	convCSS("./testdata/platform/project/apps/foo/foo_main.xml")
 }
 
-func comb(n int) [][]int {
+func comb(classes []string) [][]string {
+	n := len(classes)
 	count := 1 << uint(n)
-
-	src := make([]int, n)
-	for i := 0; i < n; i++ {
-		src[i] = i
-	}
 
 	bits := make(BitsArray, count)
 	for i := 0; i < count; i++ {
@@ -31,13 +28,13 @@ func comb(n int) [][]int {
 	}
 	sort.Sort(bits)
 
-	aa := [][]int{}
+	aa := [][]string{}
 	for i := 0; i < count; i++ {
 		log.Printf("%b\n", bits[i])
-		a := []int{}
+		a := []string{}
 		for j := 0; j < n; j++ {
 			if (1<<uint(j))&bits[i] != 0 {
-				a = append(a, src[j])
+				a = append(a, classes[j])
 			}
 		}
 		aa = append(aa, a)
@@ -51,9 +48,9 @@ type BitsArray []int
 func (p BitsArray) Len() int { return len(p) }
 func (p BitsArray) Less(i, j int) bool {
 	if numOfBits(p[i]) == numOfBits(p[j]) {
-		return p[i] < p[j]
+		return p[i] > p[j]
 	}
-	return numOfBits(p[i]) < numOfBits(p[j])
+	return numOfBits(p[i]) > numOfBits(p[j])
 }
 func (p BitsArray) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
 
