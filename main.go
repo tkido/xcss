@@ -54,9 +54,8 @@ func parse(t *Tag) {
 	}
 
 	for _, v := range t.Children {
-		switch v.(type) {
-		case *Tag:
-			parse(v.(*Tag))
+		if tag, isTag := v.(*Tag); isTag {
+			parse(tag)
 		}
 	}
 }
