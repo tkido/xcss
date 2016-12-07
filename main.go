@@ -9,20 +9,6 @@ import (
 	"strings"
 )
 
-type Source struct {
-	Path string
-	Tag  *Tag
-}
-type Value struct {
-	Value  string
-	Source Source
-}
-type Setting struct {
-	VMap     map[string]Value
-	Children []interface{}
-}
-type Settings map[string]Setting
-
 var sets Settings
 
 func main() {
@@ -46,7 +32,7 @@ func readCSS(path string) {
 
 func parse(t *Tag, path string) {
 	var key, tipe, id, class string
-	//src := Source{path, t}
+	from := From{path, t}
 
 	log.Println(t.Name.Local)
 	if t.Name.Local == "item" {
@@ -64,12 +50,24 @@ func parse(t *Tag, path string) {
 		}
 		if tipe != "" {
 			key = tipe + id + class
-			if _, ok := sets[key]; ok {
-				sets[key] = Setting{}
-			} else {
-				sets[key] = Setting{}
+			vmap := make(map[string]Value)
+			for _, a := range t.Attr {
+				switch a.Name.Local {
+				case "type", "id", "class":
+					//exclude these attributes
+				default:
+					vmap[a.Name.Local] = Value{a.Value, from}
+				}
 			}
 
+			if set, ok := sets[key]; ok {
+				for k, v := range vmap {
+					set.Map[k] = v
+				}
+				set.Children = t.Children
+			} else {
+				sets[key] = &Setting{vmap, t.Children}
+			}
 		}
 	}
 
@@ -78,17 +76,4 @@ func parse(t *Tag, path string) {
 			parse(tag, path)
 		}
 	}
-}
-
-func attrsToMap(as []xml.Attr) map[string]string {
-	m := make(map[string]string)
-	for _, a := range as {
-		switch a.Name.Local {
-		case "type", "id", "class":
-			//exclude these attributes
-		default:
-			m[a.Name.Local] = a.Value
-		}
-	}
-	return m
 }
