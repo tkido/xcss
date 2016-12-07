@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"log"
+	"os"
 	"sort"
 	"strings"
 )
@@ -15,16 +16,18 @@ func readCSS(path string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	f, _ := os.Open(path)
+	fi, _ := f.Stat()
+	name := fi.Name()
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	parse(root, path)
+	parse(root, name)
 	log.Println(sets)
 }
 
 func parse(t *Tag, path string) {
 	var key, tipe, id, class string
-	from := From{path, t}
 
 	log.Println(t.Name.Local)
 	if t.Name.Local == "item" {
@@ -48,7 +51,7 @@ func parse(t *Tag, path string) {
 				case "type", "id", "class":
 					//exclude these attributes
 				default:
-					vmap[a.Name.Local] = Value{a.Value, from}
+					vmap[a.Name.Local] = Value{a.Value, From{path, key}}
 				}
 			}
 

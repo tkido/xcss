@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"log"
+	"os"
 	"sort"
 	"strings"
 )
@@ -24,17 +25,19 @@ func convCSS(path string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	f, _ := os.Open(path)
+	fi, _ := f.Stat()
+	name := fi.Name()
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	conv(root, path)
+	conv(root, name)
 
 	log.Println(root)
 }
 
-func conv(t *Tag, path string) {
+func conv(t *Tag, name string) {
 	var key, tipe, id, class string
-	from := From{path, t}
 
 	log.Println(t.Name.Local)
 	if t.Name.Local == "item" {
@@ -54,7 +57,7 @@ func conv(t *Tag, path string) {
 			key = tipe + id + class
 			vmap := make(map[string]Value)
 			for _, a := range t.Attr {
-				vmap[a.Name.Local] = Value{a.Value, from}
+				vmap[a.Name.Local] = Value{a.Value, From{name, key}}
 			}
 
 			if set, ok := sets[key]; ok {
@@ -78,7 +81,7 @@ func conv(t *Tag, path string) {
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			conv(tag, path)
+			conv(tag, name)
 		}
 	}
 }

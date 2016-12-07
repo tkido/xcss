@@ -9,8 +9,8 @@ import (
 
 //From indicates where the value comes from
 type From struct {
-	Path string
-	Tag  *Tag
+	Name     string
+	Selector string
 }
 
 //Value is the value set for an attribute
