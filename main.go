@@ -24,11 +24,11 @@ func readCSS(path string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	parseSettings(root)
+	parse(root)
 	log.Println(settings)
 }
 
-func parseSettings(t *Tag) {
+func parse(t *Tag) {
 	var key, itemType, selector string
 
 	log.Println(t.Name.Local)
@@ -52,31 +52,7 @@ func parseSettings(t *Tag) {
 	for _, v := range t.Children {
 		switch v.(type) {
 		case *Tag:
-			parseSettings(v.(*Tag))
-		case xml.CharData:
-			//log.Println(string(v.(xml.CharData)))
-		case xml.Comment:
-			//log.Println(string(v.(xml.Comment)))
-		}
-	}
-}
-
-func parse(t *Tag) {
-	log.Println(t.Name.Local)
-
-	for _, a := range t.Attr {
-		log.Println(a.Name.Local)
-		log.Println(a.Value)
-	}
-
-	for _, v := range t.Children {
-		switch v.(type) {
-		case *Tag:
 			parse(v.(*Tag))
-		case xml.CharData:
-			//log.Println(string(v.(xml.CharData)))
-		case xml.Comment:
-			//log.Println(string(v.(xml.Comment)))
 		}
 	}
 }
