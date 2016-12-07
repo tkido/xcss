@@ -5,6 +5,8 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"log"
+	"sort"
+	"strings"
 )
 
 var settings map[string]*Tag
@@ -16,7 +18,7 @@ func main() {
 }
 
 func readCSS(path string) {
-	log.Println("Read File:" + path)
+	log.Println("Read CSS:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
@@ -29,24 +31,26 @@ func readCSS(path string) {
 }
 
 func parse(t *Tag) {
-	var key, itemType, selector string
+	var key, tipe, id, class string
 
 	log.Println(t.Name.Local)
-	for _, a := range t.Attr {
-		switch a.Name.Local {
-		case "type":
-			itemType = a.Value
-		case "id":
-			selector = "#" + a.Value
-		case "class":
-			selector = "." + a.Value
+	if t.Name.Local == "item" {
+		for _, a := range t.Attr {
+			switch a.Name.Local {
+			case "type":
+				tipe = a.Value
+			case "id":
+				id = "#" + a.Value
+			case "class":
+				cs := strings.Split(a.Value, " ")
+				sort.Strings(cs)
+				class = "." + strings.Join(cs, ".")
+			}
 		}
-	}
-	if itemType != "" && selector != "" {
-		key = itemType + selector
-	}
-	if key != "" {
-		settings[key] = t
+		if tipe != "" {
+			key = tipe + id + class
+			settings[key] = t
+		}
 	}
 
 	for _, v := range t.Children {
