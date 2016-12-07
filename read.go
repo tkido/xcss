@@ -9,17 +9,8 @@ import (
 	"strings"
 )
 
-var sets Settings
-
-func main() {
-	sets = Settings{}
-	readCSS("./testdata/platform/platform_css.xml")
-	readCSS("./testdata/platform/project/project_css.xml")
-	convCSS("./testdata/platform/project/apps/foo/foo_main.xml")
-}
-
-func convCSS(path string) {
-	log.Println("Convert CSS:" + path)
+func readCSS(path string) {
+	log.Println("Read CSS:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
@@ -27,12 +18,11 @@ func convCSS(path string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	conv(root, path)
-
-	log.Println(root)
+	parse(root, path)
+	log.Println(sets)
 }
 
-func conv(t *Tag, path string) {
+func parse(t *Tag, path string) {
 	var key, tipe, id, class string
 	from := From{path, t}
 
@@ -54,31 +44,28 @@ func conv(t *Tag, path string) {
 			key = tipe + id + class
 			vmap := make(map[string]Value)
 			for _, a := range t.Attr {
-				vmap[a.Name.Local] = Value{a.Value, from}
-			}
-
-			if set, ok := sets[key]; ok {
-				for k, v := range set.Map {
-					if _, ok := vmap[k]; !ok {
-						vmap[k] = v
-					}
+				switch a.Name.Local {
+				case "type", "id", "class":
+					//exclude these attributes
+				default:
+					vmap[a.Name.Local] = Value{a.Value, from}
 				}
 			}
 
-			as := []xml.Attr{}
-			for k, v := range vmap {
-				as = append(as, xml.Attr{
-					Name:  xml.Name{Space: "", Local: k},
-					Value: v.Value,
-				})
+			if set, ok := sets[key]; ok {
+				for k, v := range vmap {
+					set.Map[k] = v
+				}
+				set.Children = t.Children
+			} else {
+				sets[key] = &Setting{vmap, t.Children}
 			}
-			t.Attr = as
 		}
 	}
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			conv(tag, path)
+			parse(tag, path)
 		}
 	}
 }
