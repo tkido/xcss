@@ -1,41 +1,49 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"io/ioutil"
+	"log"
 	"path/filepath"
 )
 
 var sets Settings
 
 func main() {
-	sets = Settings{}
-	csss := []string{
-		"./testdata/platform/platform_css.xml",
-		"./testdata/platform/project/project_css.xml",
-	}
-	for _, css := range csss {
-		readCSS(css)
-	}
+	root := "./testdata/platform"
+	walk(root, &Settings{})
 
-	appsPath := "./testdata/platform/project/apps"
+	/*
+		csss := []string{
+			"./testdata/platform/platform_css.xml",
+			"./testdata/platform/project/project_css.xml",
+		}
+		for _, css := range csss {
+			readCSS(css)
+		}
 
-	convCSS("./testdata/platform/project/apps/foo/foo_main_style.xml")
+		appsPath := "./testdata/platform/project/apps"
 
-	err := filepath.Walk(appsPath,
-		func(path string, info os.FileInfo, err error) error {
-			if info.IsDir() {
-				// 特定のディレクトリ以下を無視する場合は
-				// return filepath.SkipDir
-				return nil
-			}
-			rel, err := filepath.Rel(appsPath, path)
-			fmt.Println(rel)
-			return nil
-		})
+		convCSS("./testdata/platform/project/apps/foo/foo_main_style.xml")
 
+	*/
+}
+
+func walk(path string, sets *Settings) {
+	fis, err := ioutil.ReadDir(path)
 	if err != nil {
-		fmt.Println(1, err)
+		log.Fatal(err)
 	}
+	for _, fi := range fis {
+		fullPath := filepath.Join(path, fi.Name())
 
+		if fi.IsDir() {
+			walk(fullPath, sets)
+		} else {
+			rel, err := filepath.Rel(path, fullPath)
+			if err != nil {
+				log.Fatal(err)
+			}
+			log.Println(rel)
+		}
+	}
 }
