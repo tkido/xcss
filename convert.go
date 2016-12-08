@@ -18,16 +18,16 @@ func convCSS(path string) {
 	}
 	f, _ := os.Open(path)
 	fi, _ := f.Stat()
-	name := fi.Name()
+	fileName := fi.Name()
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	conv(root, name)
+	conv(root, fileName)
 
 	log.Println(root)
 }
 
-func conv(t *Tag, name string) {
+func conv(t *Tag, fileName string) {
 	var key, tipe, id, class string
 
 	log.Println(t.Name.Local)
@@ -48,7 +48,7 @@ func conv(t *Tag, name string) {
 			key = tipe + id + class
 			vmap := make(map[string]Value)
 			for _, a := range t.Attr {
-				vmap[a.Name.Local] = Value{a.Value, From{name, key}}
+				vmap[a.Name.Local] = Value{a.Value, From{fileName, key}}
 			}
 
 			if set, ok := sets[key]; ok {
@@ -72,7 +72,7 @@ func conv(t *Tag, name string) {
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			conv(tag, name)
+			conv(tag, fileName)
 		}
 	}
 }
