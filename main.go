@@ -3,47 +3,52 @@ package main
 import (
 	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
+	"regexp"
 )
-
-var sets Settings
 
 func main() {
 	root := "./testdata/platform"
 	walk(root, &Settings{})
-
-	/*
-		csss := []string{
-			"./testdata/platform/platform_css.xml",
-			"./testdata/platform/project/project_css.xml",
-		}
-		for _, css := range csss {
-			readCSS(css)
-		}
-
-		appsPath := "./testdata/platform/project/apps"
-
-		convCSS("./testdata/platform/project/apps/foo/foo_main_style.xml")
-
-	*/
 }
+
+var reCSS = regexp.MustCompile(`.*_css.xml$`)
+var reXML = regexp.MustCompile(`.*_style.xml$`)
 
 func walk(path string, sets *Settings) {
 	fis, err := ioutil.ReadDir(path)
 	if err != nil {
 		log.Fatal(err)
 	}
+	var dirs, csss, xmls []os.FileInfo
 	for _, fi := range fis {
-		fullPath := filepath.Join(path, fi.Name())
 
 		if fi.IsDir() {
-			walk(fullPath, sets)
+			dirs = append(dirs, fi)
 		} else {
-			rel, err := filepath.Rel(path, fullPath)
-			if err != nil {
-				log.Fatal(err)
+			name := fi.Name()
+			if reCSS.MatchString(name) {
+				csss = append(csss, fi)
+			} else if reXML.MatchString(name) {
+				xmls = append(xmls, fi)
 			}
-			log.Println(rel)
 		}
+	}
+	if 0 < len(csss) {
+		sets = sets.Copy()
+		for _, css := range csss {
+			cssPath := filepath.Join(path, css.Name())
+			readCSS(cssPath, sets)
+		}
+	}
+	for _, xml := range xmls {
+		xmlPath := filepath.Join(path, xml.Name())
+		convXML(xmlPath, sets)
+	}
+
+	for _, dir := range dirs {
+		fullPath := filepath.Join(path, dir.Name())
+		walk(fullPath, sets)
 	}
 }

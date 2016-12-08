@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func readCSS(path string) {
+func readCSS(path string, sets *Settings) {
 	log.Println("Read CSS:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -22,11 +22,11 @@ func readCSS(path string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	parse(root, fileName)
+	parse(root, fileName, sets)
 	log.Println(sets)
 }
 
-func parse(t *Tag, fileName string) {
+func parse(t *Tag, fileName string, sets *Settings) {
 	var key, tipe, id, class string
 
 	log.Println(t.Name.Local)
@@ -54,20 +54,20 @@ func parse(t *Tag, fileName string) {
 				vmap[a.Name.Local] = Value{a.Value, From{fileName, key}}
 			}
 
-			if set, ok := sets[key]; ok {
+			if set, ok := (*sets)[key]; ok {
 				for k, v := range vmap {
 					set.Map[k] = v
 				}
 				set.Children = t.Children
 			} else {
-				sets[key] = &Setting{vmap, t.Children}
+				(*sets)[key] = &Setting{vmap, t.Children}
 			}
 		}
 	}
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			parse(tag, fileName)
+			parse(tag, fileName, sets)
 		}
 	}
 }

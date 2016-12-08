@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func convCSS(path string) {
+func convXML(path string, sets *Settings) {
 	log.Println("Convert CSS:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -22,12 +22,12 @@ func convCSS(path string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	conv(root, fileName)
+	conv(root, fileName, sets)
 
 	log.Println(root)
 }
 
-func conv(t *Tag, fileName string) {
+func conv(t *Tag, fileName string, sets *Settings) {
 	var tipe, id string
 	ss := []string{""}
 
@@ -51,7 +51,7 @@ func conv(t *Tag, fileName string) {
 				ss = append(ss, id)
 			}
 			for _, s := range ss {
-				if set, ok := sets[tipe+s]; ok {
+				if set, ok := (*sets)[tipe+s]; ok {
 					for k, v := range set.Map {
 						vmap[k] = v
 					}
@@ -73,7 +73,7 @@ func conv(t *Tag, fileName string) {
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			conv(tag, fileName)
+			conv(tag, fileName, sets)
 		}
 	}
 }

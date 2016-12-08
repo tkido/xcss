@@ -34,7 +34,7 @@ func (set *Setting) String() string {
 type Settings map[string]*Setting
 
 // Copy Settings
-func (sets *Settings) Copy() Settings {
+func (sets *Settings) Copy() *Settings {
 	var buf bytes.Buffer
 	enc := gob.NewEncoder(&buf)
 	dec := gob.NewDecoder(&buf)
@@ -48,5 +48,5 @@ func (sets *Settings) Copy() Settings {
 	if err != nil {
 		log.Fatal("decode error:", err)
 	}
-	return copy
+	return &copy
 }
