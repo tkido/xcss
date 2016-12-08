@@ -27,17 +27,9 @@ func convCSS(path string) {
 	log.Println(root)
 }
 
-func apply(vmap map[string]Value, selector string) {
-	if set, ok := sets[selector]; ok {
-		for k, v := range set.Map {
-			vmap[k] = v
-		}
-	}
-}
-
 func conv(t *Tag, fileName string) {
 	var tipe, id string
-	var css []string //class selectors
+	ss := []string{""}
 
 	log.Println(t.Name.Local)
 	if t.Name.Local == "item" {
@@ -50,15 +42,21 @@ func conv(t *Tag, fileName string) {
 			case "class":
 				cs := strings.Split(a.Value, " ")
 				sort.Strings(cs)
-				css = comb(cs)
+				ss = append(ss, comb(cs)...)
 			}
 		}
 		if tipe != "" {
 			vmap := make(map[string]Value)
-			for _, cs := range css {
-				apply(vmap, tipe+cs)
+			if id != "" {
+				ss = append(ss, id)
 			}
-			apply(vmap, tipe+id)
+			for _, s := range ss {
+				if set, ok := sets[tipe+s]; ok {
+					for k, v := range set.Map {
+						vmap[k] = v
+					}
+				}
+			}
 			for _, a := range t.Attr {
 				vmap[a.Name.Local] = Value{a.Value, From{fileName, "this"}}
 			}

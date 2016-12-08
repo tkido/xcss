@@ -17,8 +17,8 @@ func comb(classes []string) []string {
 	}
 	sort.Sort(bits)
 
-	aa := []string{}
-	for i := 0; i < count; i++ {
+	ss := []string{}
+	for i := 1; i < count; i++ {
 		log.Printf("%b\n", bits[i])
 		a := []string{}
 		for j := 0; j < n; j++ {
@@ -27,15 +27,9 @@ func comb(classes []string) []string {
 			}
 		}
 		sort.Strings(a)
-		var selector string
-		if len(a) == 0 {
-			selector = ""
-		} else {
-			selector = "." + strings.Join(a, ".")
-		}
-		aa = append(aa, selector)
+		ss = append(ss, "."+strings.Join(a, "."))
 	}
-	return aa
+	return ss
 }
 
 //BitsArray sorted by bit count
