@@ -1,11 +1,15 @@
 <styles>
 	<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
 
-	<item type="text" w="0" h="0" />
-	<!-- key = "text" -->
+	<item type="text" />
+	<!-- "text" -->
 
-	<item type="text" id="title" w="1" h="1" />
-	<!-- key = "text#title" -->
+	<item type="text" id="title" fontsize="L" />
+	<!-- "text#title" -->
+	<item type="text" class="day" fontcolor="BLACK"/>
+	<!-- "text.day" -->
+	<item type="text" class="night" fontcolor="WHITE"/>
+	<!-- "text.night" -->
 
 	<item type="text" class="foo" w="2" h="2" />
 	<!-- key = "text.foo" -->
@@ -16,11 +20,6 @@
 	<item type="text" id="title" class="foo bar" w="0" h="0" />
 	<!-- key = "text#title.bar.foo" -->
 
-
-
-	<item type="text" class="day" fontcolor="BLACK"/>
-	<item type="text" class="night" fontcolor="WHITE"/>
-	<item type="text" id="title" fontsize="L" x="0"/>
 
 	<!-- All comments are ignored -->
 	All texts are ignored

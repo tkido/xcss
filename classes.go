@@ -3,9 +3,10 @@ package main
 import (
 	"log"
 	"sort"
+	"strings"
 )
 
-func comb(classes []string) [][]string {
+func comb(classes []string) []string {
 	sort.Sort(sort.Reverse(sort.StringSlice(classes)))
 	n := len(classes)
 	count := 1 << uint(n)
@@ -16,7 +17,7 @@ func comb(classes []string) [][]string {
 	}
 	sort.Sort(bits)
 
-	aa := [][]string{}
+	aa := []string{}
 	for i := 0; i < count; i++ {
 		log.Printf("%b\n", bits[i])
 		a := []string{}
@@ -26,7 +27,13 @@ func comb(classes []string) [][]string {
 			}
 		}
 		sort.Strings(a)
-		aa = append(aa, a)
+		var selector string
+		if len(a) == 0 {
+			selector = ""
+		} else {
+			selector = "." + strings.Join(a, ".")
+		}
+		aa = append(aa, selector)
 	}
 	return aa
 }
