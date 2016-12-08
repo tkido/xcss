@@ -9,12 +9,11 @@ import (
 )
 
 func main() {
-	root := "./testdata/platform"
-	walk(root, &Settings{})
+	walk("./testdata/platform", &Settings{})
 }
 
-var reCSS = regexp.MustCompile(`.*_css.xml$`)
-var reXML = regexp.MustCompile(`.*_style.xml$`)
+var reCSS = regexp.MustCompile(`_css.xml$`)
+var reXML = regexp.MustCompile(`_style.xml$`)
 
 func walk(path string, sets *Settings) {
 	fis, err := ioutil.ReadDir(path)
@@ -23,7 +22,6 @@ func walk(path string, sets *Settings) {
 	}
 	var dirs, csss, xmls []os.FileInfo
 	for _, fi := range fis {
-
 		if fi.IsDir() {
 			dirs = append(dirs, fi)
 		} else {
@@ -46,7 +44,6 @@ func walk(path string, sets *Settings) {
 		xmlPath := filepath.Join(path, xml.Name())
 		convXML(xmlPath, sets)
 	}
-
 	for _, dir := range dirs {
 		fullPath := filepath.Join(path, dir.Name())
 		walk(fullPath, sets)

@@ -6,9 +6,13 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 )
+
+var reTab = regexp.MustCompile(`&#x9;`)
 
 func convXML(path string, sets *Settings) {
 	log.Println("Convert CSS:" + path)
@@ -24,7 +28,21 @@ func convXML(path string, sets *Settings) {
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	conv(root, fileName, sets)
 
-	log.Println(root)
+	dir := filepath.Dir(path)
+	newName := reXML.ReplaceAllString(fileName, ".xml")
+	newPath := filepath.Join(dir, newName)
+
+	file, err := os.Create(newPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	//temporary workaround
+	buf := new(bytes.Buffer)
+	xml.NewEncoder(buf).Encode(root)
+	str := reTab.ReplaceAllString(buf.String(), "\t")
+	file.WriteString(str)
 }
 
 func conv(t *Tag, fileName string, sets *Settings) {

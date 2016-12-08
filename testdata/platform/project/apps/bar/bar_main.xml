@@ -1,0 +1,6 @@
+<pane>
+	<resources>	</resources>
+	<widgets>
+		<item w="800" type="image" id="background" h="416" imageurl="@DNA/common/bg.png"></item>
+	</widgets>
+</pane>

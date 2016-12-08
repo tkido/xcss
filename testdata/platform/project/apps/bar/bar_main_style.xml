@@ -1,5 +1,5 @@
 <pane>
-	<resources></resources>
+	<resources>	</resources>
 	<widgets>
 		<item type="image" id="background" />
 	</widgets>

@@ -1,0 +1,7 @@
+<pane>
+	<widgets>
+		<item h="416" imageurl="@DNA/common/bg.png" type="image" id="background" w="10"></item>
+		<item fontcolor="BLACK" fontsize="L" type="text" id="title" class="day" text="AppTitle"></item>
+		<item fontcolor="WHITE" type="text" class="night" text="This text is white"></item>
+	</widgets>
+</pane>
