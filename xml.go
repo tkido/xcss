@@ -3,35 +3,8 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
 	"io"
 )
-
-//From indicates where the value comes from
-type From struct {
-	Name     string
-	Selector string
-}
-
-//Value is the value set for an attribute
-type Value struct {
-	Value string
-	From  From
-}
-
-//Setting a Set of settings corresponding to one selector
-type Setting struct {
-	Map      map[string]Value
-	Children []interface{}
-}
-
-//String
-func (set *Setting) String() string {
-	return fmt.Sprintf("%v\n", set.Map)
-}
-
-//Settings the total settnigs from CSSs in project
-type Settings map[string]*Setting
 
 // Tag general tag of xml
 type Tag struct {
@@ -90,7 +63,7 @@ func (t *Tag) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	}
 }
 
-//String
+// String from Tag
 func (t *Tag) String() string {
 	buf := new(bytes.Buffer)
 	xml.NewEncoder(buf).Encode(t)
