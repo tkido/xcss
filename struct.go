@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"bytes"
+	"encoding/gob"
+	"fmt"
+	"log"
+)
 
 // From indicates where the value comes from
 type From struct {
@@ -27,3 +32,21 @@ func (set *Setting) String() string {
 
 //Settings the total settnigs from CSSs in project
 type Settings map[string]*Setting
+
+// Copy Settings
+func (sets *Settings) Copy() Settings {
+	var buf bytes.Buffer
+	enc := gob.NewEncoder(&buf)
+	dec := gob.NewDecoder(&buf)
+
+	err := enc.Encode(sets)
+	if err != nil {
+		log.Fatal("encode error:", err)
+	}
+	var copy Settings
+	err = dec.Decode(&copy)
+	if err != nil {
+		log.Fatal("decode error:", err)
+	}
+	return copy
+}
