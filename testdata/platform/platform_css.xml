@@ -2,24 +2,18 @@
 	<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
 
 	<item type="text" />
-	<!-- "text" -->
-
 	<item type="text" id="title" fontsize="L" />
-	<!-- "text#title" -->
+
 	<item type="text" class="day" fontcolor="BLACK"/>
-	<!-- "text.day" -->
 	<item type="text" class="night" fontcolor="WHITE"/>
-	<!-- "text.night" -->
+
+	<item type="text" class="day forest" fontcolor="GREEN"/>
+	<item type="text" class="night forest" fontcolor="PARPLE"/>
 
 	<item type="text" class="foo" w="2" h="2" />
-	<!-- key = "text.foo" -->
-
 	<item type="text" class="foo bar" w="3" h="3" />
-	<!-- key = "text.bar.foo" -->
 
 	<item type="text" id="title" class="foo bar" w="0" h="0" />
-	<!-- key = "text#title.bar.foo" -->
-
 
 	<!-- All comments are ignored -->
 	All texts are ignored

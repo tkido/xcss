@@ -1,7 +1,12 @@
 <pane>
+	<widgets class="forest">
+		<item h="416" imageurl="@DNA/common/bg.png" type="image" id="background" w="10"></item>
+		<item fontcolor="GREEN" fontsize="L" type="text" id="title" class="day" text="AppTitle"></item>
+		<item fontcolor="PARPLE" type="text" class="night" text="This text is white"></item>
+	</widgets>
 	<widgets>
-		<item id="background" w="10" h="416" imageurl="@DNA/common/bg.png" type="image"></item>
-		<item text="AppTitle" fontcolor="BLACK" fontsize="L" type="text" id="title" class="day"></item>
-		<item fontcolor="WHITE" type="text" class="night" text="This text is white"></item>
+		<item type="image" id="background" imageurl="@DNA/common/bg.png" w="10" h="416"></item>
+		<item type="text" id="title" class="day" text="AppTitle" fontcolor="BLACK" fontsize="L"></item>
+		<item class="night" text="This text is white" fontcolor="WHITE" type="text"></item>
 	</widgets>
 </pane>
