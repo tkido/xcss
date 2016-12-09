@@ -8,12 +8,14 @@ import (
 	"regexp"
 )
 
-func main() {
-	walk("./testdata/platform", &Settings{})
-}
+var (
+	reCSS = regexp.MustCompile(`_xcss.xml$`)
+	reXML = regexp.MustCompile(`_sxml.xml$`)
+)
 
-var reCSS = regexp.MustCompile(`_css.xml$`)
-var reXML = regexp.MustCompile(`_style.xml$`)
+func main() {
+	walk(rootFlag, &Settings{})
+}
 
 func walk(path string, sets *Settings) {
 	fis, err := ioutil.ReadDir(path)
@@ -42,7 +44,7 @@ func walk(path string, sets *Settings) {
 	}
 	for _, xml := range xmls {
 		xmlPath := filepath.Join(path, xml.Name())
-		convXML(xmlPath, sets)
+		convXML(xmlPath, sets, initClasses)
 	}
 	for _, dir := range dirs {
 		fullPath := filepath.Join(path, dir.Name())

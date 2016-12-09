@@ -1,5 +1,5 @@
 <pane>
-	<widgets>
+	<widgets class="forest">
 		<item type="image" id="background" w="10"/>
 		<item type="text" id="title" class="day" text="AppTitle" />
 		<item type="text" class="night" text="This text is white" />

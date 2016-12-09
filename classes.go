@@ -17,7 +17,7 @@ func comb(classes []string) []string {
 	}
 	sort.Sort(bits)
 
-	ss := []string{}
+	ss := []string{""}
 	for i := 1; i < count; i++ {
 		log.Printf("%b\n", bits[i])
 		a := []string{}
