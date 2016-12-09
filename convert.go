@@ -7,12 +7,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
 	"sort"
 	"strings"
 )
-
-var reTab = regexp.MustCompile(`&#x9;`)
 
 func convXML(path string, sets *Settings) {
 	log.Println("Convert CSS:" + path)
