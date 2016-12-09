@@ -7,6 +7,19 @@ import (
 )
 
 func comb(classes []string) []string {
+	//delete duplicate classes
+	dists := make([]string, 0, len(classes))
+	checked := map[string]bool{}
+	for _, c := range classes {
+		if checked[c] {
+			log.Printf("WARNING: %s class is duplicated! It may be unintended.\n", c)
+		} else {
+			checked[c] = true
+			dists = append(dists, c)
+		}
+	}
+	classes = dists
+
 	sort.Sort(sort.Reverse(sort.StringSlice(classes)))
 	n := len(classes)
 	count := 1 << uint(n)
