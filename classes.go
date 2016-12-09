@@ -12,7 +12,7 @@ func comb(classes []string) []string {
 	checked := map[string]bool{}
 	for _, c := range classes {
 		if checked[c] {
-			log.Printf("WARNING: %s class is duplicated! It may be unintended.\n", c)
+			log.Printf("WARNING: \"%s\" class is duplicated! It may be unintended.\n", c)
 		} else {
 			checked[c] = true
 			dists = append(dists, c)

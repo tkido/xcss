@@ -15,6 +15,7 @@ var (
 
 func main() {
 	walk(rootFlag, &Settings{})
+	//attrlist(rootFlag)
 }
 
 func walk(path string, sets *Settings) {
