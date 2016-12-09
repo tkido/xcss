@@ -30,10 +30,10 @@ func (set *Setting) String() string {
 	return fmt.Sprintf("%v\n", set.Map)
 }
 
-//Settings the total settnigs from CSSs in project
+//Settings the settings from XCSSs
 type Settings map[string]*Setting
 
-// Copy Settings
+// Copy makes deep copy of Settings
 func (sets *Settings) Copy() *Settings {
 	var buf bytes.Buffer
 	enc := gob.NewEncoder(&buf)
