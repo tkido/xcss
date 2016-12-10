@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/xml"
 	"io/ioutil"
@@ -8,10 +9,38 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strings"
 )
 
 var reTab = regexp.MustCompile(`&#x9;`)
+var sortMap map[string]int
+
+func init() {
+	lines := readLines("attrsort.txt")
+	sortMap = map[string]int{}
+	for i, line := range lines {
+		sortMap[line] = i
+	}
+	log.Println(sortMap)
+}
+
+func readLines(path string) []string {
+	f, err := os.Open(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	lines := make([]string, 0, 100)
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	if err2 := scanner.Err(); err2 != nil {
+		log.Fatal(err2)
+	}
+	return lines
+}
 
 func convXML(path string, sets *Settings, ccs []string) {
 	log.Println("Convert CSS:" + path)
@@ -85,13 +114,15 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		for _, a := range t.Attr {
 			vmap[a.Name.Local] = Value{a.Value, From{fileName, "this"}}
 		}
-		as := []xml.Attr{}
+		as := AttrArray{}
 		for k, v := range vmap {
 			as = append(as, xml.Attr{
 				Name:  xml.Name{Space: "", Local: k},
 				Value: v.Value,
 			})
 		}
+		//Sort
+		sort.Sort(as)
 		t.Attr = as
 	}
 
@@ -101,3 +132,13 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		}
 	}
 }
+
+//AttrArray sorted by "attrsort.txt"
+type AttrArray []xml.Attr
+
+//methods for "sort.Interface"
+func (p AttrArray) Len() int { return len(p) }
+func (p AttrArray) Less(i, j int) bool {
+	return sortMap[p[i].Name.Local] < sortMap[p[j].Name.Local]
+}
+func (p AttrArray) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
