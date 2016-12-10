@@ -8,12 +8,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
 	"sort"
 	"strings"
 )
 
-var reTab = regexp.MustCompile(`&#x9;`)
 var sortMap map[string]int
 
 func init() {
@@ -57,7 +55,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	conv(root, fileName, sets, ccs)
 
 	dir := filepath.Dir(path)
-	newName := reXML.ReplaceAllString(fileName, ".xml")
+	newName := strings.Replace(fileName, "_sxml.xml", ".xml", 1)
 	newPath := filepath.Join(dir, newName)
 
 	file, err := os.Create(newPath)
@@ -69,7 +67,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	//temporary workaround
 	buf := new(bytes.Buffer)
 	xml.NewEncoder(buf).Encode(root)
-	str := reTab.ReplaceAllString(buf.String(), "\t")
+	str := strings.Replace(buf.String(), "&#x9;", "\t", -1)
 	file.WriteString(str)
 }
 

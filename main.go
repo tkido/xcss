@@ -5,12 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
-)
-
-var (
-	reCSS = regexp.MustCompile(`_xcss.xml$`)
-	reXML = regexp.MustCompile(`_sxml.xml$`)
+	"strings"
 )
 
 func main() {
@@ -29,9 +24,9 @@ func walk(path string, sets *Settings) {
 			dirs = append(dirs, fi)
 		} else {
 			name := fi.Name()
-			if reCSS.MatchString(name) {
+			if strings.HasSuffix(name, "_xcss.xml") {
 				csss = append(csss, fi)
-			} else if reXML.MatchString(name) {
+			} else if strings.HasSuffix(name, "_sxml.xml") {
 				xmls = append(xmls, fi)
 			}
 		}
