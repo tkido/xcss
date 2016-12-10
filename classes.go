@@ -24,11 +24,11 @@ func comb(classes []string) []string {
 	n := len(classes)
 	count := 1 << uint(n)
 
-	bits := make(BitsArray, count)
+	bits := make([]int, count)
 	for i := 0; i < count; i++ {
 		bits[i] = i
 	}
-	sort.Sort(bits)
+	sort.Sort(IntByBits(bits))
 
 	ss := []string{""}
 	for i := 1; i < count; i++ {
@@ -45,20 +45,19 @@ func comb(classes []string) []string {
 	return ss
 }
 
-//BitsArray sorted by bit count
-type BitsArray []int
+//IntByBits []int sorted by bit count
+type IntByBits []int
 
-//methods for "sort.Interface"
-func (p BitsArray) Len() int { return len(p) }
-func (p BitsArray) Less(i, j int) bool {
+func (p IntByBits) Len() int { return len(p) }
+func (p IntByBits) Less(i, j int) bool {
 	if numOfBits(p[i]) == numOfBits(p[j]) {
 		return p[i] > p[j]
 	}
 	return numOfBits(p[i]) < numOfBits(p[j])
 }
-func (p BitsArray) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
+func (p IntByBits) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
 
-//count the number of set bits in a integer
+//count the number of set bits
 func numOfBits(bits int) int {
 	bits = (bits & 0x55555555) + (bits >> 1 & 0x55555555)
 	bits = (bits & 0x33333333) + (bits >> 2 & 0x33333333)

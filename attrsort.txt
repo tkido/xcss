@@ -35,8 +35,8 @@ itemwidth
 itemheight
 fg
 bg
-fontcolor
 fontsize
+fontcolor
 fontstyle
 ref
 side

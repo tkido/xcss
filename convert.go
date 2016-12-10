@@ -114,15 +114,14 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		for _, a := range t.Attr {
 			vmap[a.Name.Local] = Value{a.Value, From{fileName, "this"}}
 		}
-		as := AttrArray{}
+		as := []xml.Attr{}
 		for k, v := range vmap {
 			as = append(as, xml.Attr{
 				Name:  xml.Name{Space: "", Local: k},
 				Value: v.Value,
 			})
 		}
-		//Sort
-		sort.Sort(as)
+		sort.Sort(AttrByName(as))
 		t.Attr = as
 	}
 
@@ -133,12 +132,11 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 	}
 }
 
-//AttrArray sorted by "attrsort.txt"
-type AttrArray []xml.Attr
+//AttrByName is []xml.Attr sorted by names in "attrsort.txt"
+type AttrByName []xml.Attr
 
-//methods for "sort.Interface"
-func (p AttrArray) Len() int { return len(p) }
-func (p AttrArray) Less(i, j int) bool {
+func (p AttrByName) Len() int { return len(p) }
+func (p AttrByName) Less(i, j int) bool {
 	return sortMap[p[i].Name.Local] < sortMap[p[j].Name.Local]
 }
-func (p AttrArray) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
+func (p AttrByName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
