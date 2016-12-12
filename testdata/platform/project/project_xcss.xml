@@ -1,3 +1,3 @@
 <styles>
-	<item type="image" id="background" w="800" h="240" imageurl="@DNA/common/bg.png"/>
+	<item type="image" id="background_image" imageurl="@DNA/common/bg.png" x="0" y="0" w="800" h="416"/>
 </styles>
