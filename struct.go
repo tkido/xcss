@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/gob"
-	"encoding/xml"
 	"fmt"
 	"log"
 )
@@ -66,12 +65,3 @@ func (p AttrsByName) Less(i, j int) bool {
 	return sortMap[p[i].Name] < sortMap[p[j].Name]
 }
 func (p AttrsByName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
-
-//AttrByName is []xml.Attr sorted by names in "attrsort.txt"
-type AttrByName []xml.Attr
-
-func (p AttrByName) Len() int { return len(p) }
-func (p AttrByName) Less(i, j int) bool {
-	return sortMap[p[i].Name.Local] < sortMap[p[j].Name.Local]
-}
-func (p AttrByName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }

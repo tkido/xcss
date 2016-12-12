@@ -110,32 +110,34 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 			}
 		}
 		for _, a := range t.Attr {
-			vmap[a.Name.Local] = Value{a.Value, From{fileName, "THIS"}}
+			vmap[a.Name.Local] = Value{a.Value, From{fileName, "!THIS!"}}
 		}
 
-		as := []xml.Attr{}
+		as := []Attr{}
 		for k, v := range vmap {
-			as = append(as, xml.Attr{
-				Name:  xml.Name{Space: "", Local: k},
-				Value: v.Value,
-			})
+			as = append(as, Attr{Name: k, Value: v})
 		}
-		sort.Sort(AttrByName(as))
-		t.Attr = as
+		sort.Sort(AttrsByName(as))
 
 		if debugFlag {
-			as := []Attr{}
-			for k, v := range vmap {
-				as = append(as, Attr{Name: k, Value: v})
-			}
-			sort.Sort(AttrsByName(as))
 			buf := bytes.NewBufferString("\n")
 			for _, a := range as {
-				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
+				if a.Value.From.Selector != "!THIS!" {
+					fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
+				}
 			}
 			c := xml.Comment(buf.Bytes())
 			t.Children = append(t.Children, c)
 		}
+
+		xas := []xml.Attr{}
+		for _, a := range as {
+			xas = append(xas, xml.Attr{
+				Name:  xml.Name{Space: "", Local: a.Name},
+				Value: a.Value.Value,
+			})
+		}
+		t.Attr = xas
 	}
 
 	for _, v := range t.Children {
