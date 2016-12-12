@@ -24,15 +24,12 @@ func comb(classes []string) []string {
 	n := len(classes)
 	count := 1 << uint(n)
 
-	bits := make([]int, count)
-	for i := 0; i < count; i++ {
-		bits[i] = i
-	}
-	sort.Sort(IntByBits(bits))
+	bits := getBits(n)
 
-	ss := []string{""}
+	ss := make([]string, 1, count)
+	ss[0] = ""
 	for i := 1; i < count; i++ {
-		a := []string{}
+		a := make([]string, 0, n)
 		for j := 0; j < n; j++ {
 			if (1<<uint(j))&bits[i] != 0 {
 				a = append(a, classes[j])
@@ -42,6 +39,23 @@ func comb(classes []string) []string {
 		ss = append(ss, "."+strings.Join(a, "."))
 	}
 	return ss
+}
+
+//cache of bit pattern
+var bitsMemo = map[int][]int{}
+
+func getBits(n int) []int {
+	if bits, ok := bitsMemo[n]; ok {
+		return bits
+	}
+	count := 1 << uint(n)
+	bits := make([]int, count)
+	for i := 0; i < count; i++ {
+		bits[i] = i
+	}
+	sort.Sort(IntByBits(bits))
+	bitsMemo[n] = bits
+	return bits
 }
 
 //IntByBits []int sorted by bit count
