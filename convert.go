@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
@@ -64,10 +65,9 @@ func convXML(path string, sets *Settings, ccs []string) {
 	}
 	defer file.Close()
 
-	//temporary workaround
 	buf := new(bytes.Buffer)
 	xml.NewEncoder(buf).Encode(root)
-	str := strings.Replace(buf.String(), "&#x9;", "\t", -1)
+	str := strings.Replace(buf.String(), "&#x9;", "\t", -1) //Temporary Workaround for a bug of encoder(maybe)
 	file.WriteString(str)
 }
 
@@ -110,7 +110,7 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 			}
 		}
 		for _, a := range t.Attr {
-			vmap[a.Name.Local] = Value{a.Value, From{fileName, "this"}}
+			vmap[a.Name.Local] = Value{a.Value, From{fileName, "THIS"}}
 		}
 		as := []xml.Attr{}
 		for k, v := range vmap {
@@ -121,6 +121,16 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		}
 		sort.Sort(AttrByName(as))
 		t.Attr = as
+
+		if debugFlag {
+			buf := bytes.NewBufferString("\n")
+			for k, v := range vmap {
+				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", k, v.Value, v.From.Selector, v.From.Name)
+			}
+
+			c := xml.Comment(buf.Bytes())
+			t.Children = append(t.Children, c)
+		}
 	}
 
 	for _, v := range t.Children {
