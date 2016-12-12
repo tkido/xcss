@@ -23,7 +23,7 @@ func readCSS(path string, sets *Settings) {
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	parse(root, fileName, sets)
-	log.Println(sets)
+	//log.Println(sets)
 }
 
 func parse(t *Tag, fileName string, sets *Settings) {
