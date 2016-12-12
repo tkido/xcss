@@ -57,6 +57,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	dir := filepath.Dir(path)
 	newName := strings.Replace(fileName, "_sxml.xml", ".xml", 1)
 	newPath := filepath.Join(dir, newName)
+	log.Println("      to XML:" + newPath)
 
 	file, err := os.Create(newPath)
 	if err != nil {
@@ -73,7 +74,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 	var tipe, id string
 
-	log.Println(t.Name.Local)
+	//log.Println(t.Name.Local)
 
 	for _, a := range t.Attr {
 		switch a.Name.Local {
@@ -105,6 +106,7 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 					for k, v := range set.Map {
 						vmap[k] = v
 					}
+					t.Children = append(t.Children, set.Children...)
 				}
 			}
 		}

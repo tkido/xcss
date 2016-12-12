@@ -23,6 +23,7 @@ func readCSS(path string, sets *Settings) {
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	parse(root, fileName, sets)
+	log.Println(sets)
 }
 
 func parse(t *Tag, fileName string, sets *Settings) {
@@ -55,7 +56,7 @@ func parse(t *Tag, fileName string, sets *Settings) {
 				for k, v := range vmap {
 					set.Map[k] = v
 				}
-				set.Children = t.Children
+				set.Children = append(set.Children, t.Children...)
 			} else {
 				(*sets)[key] = &Setting{vmap, t.Children}
 			}
