@@ -16,12 +16,12 @@ var (
 )
 
 func init() {
-	flag.BoolVar(&debugFlag, "debug", false, "debug flag")
-	flag.BoolVar(&debugFlag, "d", false, "debug flag")
-	flag.StringVar(&rootFlag, "root", ".", "root flag")
-	flag.StringVar(&rootFlag, "r", ".", "root flag")
-	flag.StringVar(&classFlag, "class", "", "class flag")
-	flag.StringVar(&classFlag, "c", "", "class flag")
+	flag.StringVar(&classFlag, "c", "", "short form of \"class\"")
+	flag.StringVar(&classFlag, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
+	flag.BoolVar(&debugFlag, "d", false, "short form of \"debug\"")
+	flag.BoolVar(&debugFlag, "debug", false, "add comment where attribute's value came from")
+	flag.StringVar(&rootFlag, "r", ".", "short form of \"root\"")
+	flag.StringVar(&rootFlag, "root", ".", "path to start recursive walk")
 	flag.Parse()
 
 	initClasses = []string{}
