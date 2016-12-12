@@ -51,7 +51,7 @@ func (sets *Settings) Copy() *Settings {
 	return &copy
 }
 
-//Attr is
+//Attr is pair of Name, Value. but Value includes Form
 type Attr struct {
 	Name  string
 	Value Value

@@ -120,14 +120,18 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		sort.Sort(AttrsByName(as))
 
 		if debugFlag {
+			need := false
 			buf := bytes.NewBufferString("\n")
 			for _, a := range as {
 				if a.Value.From.Selector != "!THIS!" {
+					need = true
 					fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
 				}
 			}
-			c := xml.Comment(buf.Bytes())
-			t.Children = append(t.Children, c)
+			if need {
+				c := []interface{}{xml.Comment(buf.Bytes())}
+				t.Children = append(c, t.Children...)
+			}
 		}
 
 		xas := []xml.Attr{}
