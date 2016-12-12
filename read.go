@@ -23,13 +23,10 @@ func readCSS(path string, sets *Settings) {
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	parse(root, fileName, sets)
-	log.Println(sets)
 }
 
 func parse(t *Tag, fileName string, sets *Settings) {
 	var key, tipe, id, class string
-
-	log.Println(t.Name.Local)
 
 	as := []xml.Attr{}
 	if t.Name.Local == "item" {

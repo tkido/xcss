@@ -16,12 +16,11 @@ import (
 var sortMap map[string]int
 
 func init() {
-	lines := readLines("attrsort.txt")
+	lines := readLines("attrSortOrder.txt")
 	sortMap = map[string]int{}
 	for i, line := range lines {
 		sortMap[line] = i
 	}
-	log.Println(sortMap)
 }
 
 func readLines(path string) []string {
@@ -35,14 +34,14 @@ func readLines(path string) []string {
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
-	if err2 := scanner.Err(); err2 != nil {
-		log.Fatal(err2)
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
 	}
 	return lines
 }
 
 func convXML(path string, sets *Settings, ccs []string) {
-	log.Println("Convert CSS:" + path)
+	log.Println("Convert SXML:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
@@ -92,7 +91,7 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		}
 	}
 	ss := comb(ccs)
-	log.Println(ss)
+	//log.Println(ss)
 
 	if tipe != "" {
 		vmap := make(map[string]Value)

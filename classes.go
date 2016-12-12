@@ -32,7 +32,6 @@ func comb(classes []string) []string {
 
 	ss := []string{""}
 	for i := 1; i < count; i++ {
-		log.Printf("%b\n", bits[i])
 		a := []string{}
 		for j := 0; j < n; j++ {
 			if (1<<uint(j))&bits[i] != 0 {
