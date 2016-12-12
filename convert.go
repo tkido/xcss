@@ -112,6 +112,7 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		for _, a := range t.Attr {
 			vmap[a.Name.Local] = Value{a.Value, From{fileName, "THIS"}}
 		}
+
 		as := []xml.Attr{}
 		for k, v := range vmap {
 			as = append(as, xml.Attr{
@@ -123,11 +124,15 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		t.Attr = as
 
 		if debugFlag {
-			buf := bytes.NewBufferString("\n")
+			as := []Attr{}
 			for k, v := range vmap {
-				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", k, v.Value, v.From.Selector, v.From.Name)
+				as = append(as, Attr{Name: k, Value: v})
 			}
-
+			sort.Sort(AttrsByName(as))
+			buf := bytes.NewBufferString("\n")
+			for _, a := range as {
+				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
+			}
 			c := xml.Comment(buf.Bytes())
 			t.Children = append(t.Children, c)
 		}
@@ -139,12 +144,3 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		}
 	}
 }
-
-//AttrByName is []xml.Attr sorted by names in "attrsort.txt"
-type AttrByName []xml.Attr
-
-func (p AttrByName) Len() int { return len(p) }
-func (p AttrByName) Less(i, j int) bool {
-	return sortMap[p[i].Name.Local] < sortMap[p[j].Name.Local]
-}
-func (p AttrByName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
