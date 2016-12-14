@@ -65,17 +65,11 @@ func convXML(path string, sets *Settings, ccs []string) {
 	}
 	defer file.Close()
 
-	// output, err := xml.MarshalIndent(root, "", "\t")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// str := strings.Replace(string(output), "&#x9;", "\t", -1) //Temporary Workaround for a bug of encoder(maybe)
-	// file.WriteString(str)
-
-	buf := new(bytes.Buffer)
-	xml.NewEncoder(buf).Encode(root)
-	str := strings.Replace(buf.String(), "&#x9;", "\t", -1) //Temporary Workaround for a bug of encoder(maybe)
-	file.WriteString(str)
+	output, err := xml.MarshalIndent(root, "", "\t")
+	if err != nil {
+		log.Fatal(err)
+	}
+	file.Write(output)
 }
 
 func conv(t *Tag, fileName string, sets *Settings, ccs []string) {

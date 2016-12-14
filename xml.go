@@ -56,9 +56,9 @@ func (t *Tag) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 			}
 			t.Children = append(t.Children, data)
 		case xml.CharData:
-			t.Children = append(t.Children, token.(xml.CharData).Copy())
+			//t.Children = append(t.Children, token.(xml.CharData).Copy())
 		case xml.Comment:
-			t.Children = append(t.Children, token.(xml.Comment).Copy())
+			//t.Children = append(t.Children, token.(xml.Comment).Copy())
 		}
 	}
 }
