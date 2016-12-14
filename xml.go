@@ -11,6 +11,7 @@ type Tag struct {
 	Name     xml.Name
 	Attr     []xml.Attr
 	Children []interface{}
+	From     From
 }
 
 // MarshalXML to XML from Tag

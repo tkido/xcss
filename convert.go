@@ -124,6 +124,10 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		if debugFlag {
 			need := false
 			buf := bytes.NewBufferString("\n")
+			if t.From.Name != "" {
+				need = true
+				fmt.Fprintf(buf, "<%s> from \"%s\" in \"%s\"\n", t.Name.Local, t.From.Selector, t.From.Name)
+			}
 			for _, a := range as {
 				if a.Value.From.Selector != "!THIS!" {
 					need = true

@@ -47,6 +47,8 @@ func parse(t *Tag, fileName string, sets *Settings) {
 		}
 		if tipe != "" {
 			key = tipe + id + class
+			t.From = From{Name: fileName, Selector: key}
+
 			vmap := make(map[string]Value)
 			for _, a := range as {
 				vmap[a.Name.Local] = Value{a.Value, From{fileName, key}}
