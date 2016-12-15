@@ -4,7 +4,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"os/signal"
 	"path/filepath"
 	"strings"
 
@@ -12,34 +11,49 @@ import (
 )
 
 func main() {
-	//attrlist(rootFlag)
+	for {
+		doWalk()
+	}
+}
+
+func doWalk() {
+	c := make(chan bool, 1)
+	defer close(c)
+
+	log.Println("Watching...")
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer watcher.Close()
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, os.Kill)
-
-	log.Println("Watching...")
 	// Process events
 	go func() {
+	Loop:
 		for {
 			select {
 			case ev := <-watcher.Events:
 				log.Println("event:", ev)
+				if ev.Op&fsnotify.Create == fsnotify.Create {
+					log.Println("modified file:", ev.Name)
+					break Loop
+				}
 			case err = <-watcher.Errors:
 				log.Println("error:", err)
 			}
 		}
+		c <- true
 	}()
 
 	walk(rootFlag, &Settings{}, watcher)
+
 	log.Println("Waiting signal...")
-	s := <-c
-	close(c)
-	log.Println("signal:", s)
+	select {
+	case b := <-c:
+		log.Println(b)
+		log.Println("do Walk End")
+	}
+
 }
 
 func walk(path string, sets *Settings, watcher *fsnotify.Watcher) {
