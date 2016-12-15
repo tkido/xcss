@@ -11,49 +11,40 @@ import (
 )
 
 func main() {
-	for {
-		doWalk()
+	if watchFlag {
+		for {
+			doWatch()
+		}
+	} else {
+		walk(rootFlag, &Settings{}, nil)
 	}
 }
 
-func doWalk() {
-	c := make(chan bool, 1)
-	defer close(c)
-
-	log.Println("Watching...")
+func doWatch() {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer watcher.Close()
 
-	// Process events
-	go func() {
-	Loop:
-		for {
-			select {
-			case ev := <-watcher.Events:
-				log.Println("event:", ev)
-				if ev.Op&fsnotify.Create == fsnotify.Create {
-					log.Println("modified file:", ev.Name)
-					break Loop
-				}
-			case err = <-watcher.Errors:
-				log.Println("error:", err)
-			}
-		}
-		c <- true
-	}()
-
 	walk(rootFlag, &Settings{}, watcher)
 
-	log.Println("Waiting signal...")
-	select {
-	case b := <-c:
-		log.Println(b)
-		log.Println("do Walk End")
+Loop:
+	for {
+		log.Println("Watching...")
+		select {
+		case ev := <-watcher.Events:
+			log.Println("event:", ev)
+			if ev.Op&fsnotify.Create == fsnotify.Create {
+				log.Println("modified file:", ev.Name)
+				break Loop
+			}
+		case err = <-watcher.Errors:
+			log.Fatal(err)
+		}
 	}
 
+	log.Println("doWatch End")
 }
 
 func walk(path string, sets *Settings, watcher *fsnotify.Watcher) {
@@ -61,9 +52,12 @@ func walk(path string, sets *Settings, watcher *fsnotify.Watcher) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = watcher.Add(path)
-	if err != nil {
-		log.Fatal(err)
+
+	if watchFlag {
+		err = watcher.Add(path)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	var dirs, csss, xmls []os.FileInfo

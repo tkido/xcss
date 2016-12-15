@@ -9,6 +9,7 @@ import (
 
 var (
 	debugFlag bool
+	watchFlag bool
 	rootFlag  string
 	classFlag string
 
@@ -16,10 +17,12 @@ var (
 )
 
 func init() {
-	flag.StringVar(&classFlag, "c", "", "short form of \"class\"")
-	flag.StringVar(&classFlag, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
 	flag.BoolVar(&debugFlag, "d", false, "short form of \"debug\"")
 	flag.BoolVar(&debugFlag, "debug", false, "add comment where attribute's value came from")
+	flag.BoolVar(&watchFlag, "w", false, "short form of \"watch\"")
+	flag.BoolVar(&watchFlag, "watch", false, "watch \"xcss\" and \"sxml\" files and run convert when these files are changed")
+	flag.StringVar(&classFlag, "c", "", "short form of \"class\"")
+	flag.StringVar(&classFlag, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
 	flag.StringVar(&rootFlag, "r", ".", "short form of \"root\"")
 	flag.StringVar(&rootFlag, "root", ".", "path to start recursive walk")
 	flag.Parse()
