@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	SXMLSuffix = "_sxml.xml"
-	XCSSSuffix = "_xcss.xml"
-	XMLSuffix  = ".xml"
+	sufSXML = "_sxml.xml"
+	sufXCSS = "_xcss.xml"
+	sufXML  = ".xml"
 )
 
 // ConvSetting is a pair of watched SXML's filepath and Settings applyed to this file
@@ -53,9 +53,8 @@ func doWalk() {
 		for {
 			select {
 			case ev := <-watcher.Events:
-				//log.Println(ev)
 				reset := false
-				if strings.HasSuffix(ev.Name, SXMLSuffix) {
+				if strings.HasSuffix(ev.Name, sufSXML) {
 					if ev.Op&fsnotify.Create != 0 {
 						reset = true
 					} else if ev.Op&fsnotify.Write != 0 {
@@ -63,7 +62,7 @@ func doWalk() {
 							convXML(cs.FilePath, cs.Settings, initClasses)
 						}
 					}
-				} else if strings.HasSuffix(ev.Name, XCSSSuffix) {
+				} else if strings.HasSuffix(ev.Name, sufXCSS) {
 					if ev.Op&fsnotify.Chmod == 0 {
 						reset = true
 					}
@@ -84,10 +83,6 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = wset.Watcher.Add(path)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	var dirs, csss, xmls []os.FileInfo
 	for _, fi := range fis {
@@ -95,9 +90,9 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 			dirs = append(dirs, fi)
 		} else {
 			name := fi.Name()
-			if strings.HasSuffix(name, XCSSSuffix) {
+			if strings.HasSuffix(name, sufXCSS) {
 				csss = append(csss, fi)
-			} else if strings.HasSuffix(name, SXMLSuffix) {
+			} else if strings.HasSuffix(name, sufSXML) {
 				xmls = append(xmls, fi)
 			}
 		}
@@ -117,5 +112,10 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 	for _, dir := range dirs {
 		fullPath := filepath.Join(path, dir.Name())
 		walk(fullPath, sets, wset)
+	}
+
+	err = wset.Watcher.Add(path)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
