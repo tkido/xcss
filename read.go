@@ -16,7 +16,9 @@ func readCSS(path string, sets *Settings) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	f, _ := os.Open(path)
+	defer f.Close()
 	fi, _ := f.Stat()
 	fileName := fi.Name()
 

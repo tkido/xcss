@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -16,16 +17,19 @@ const (
 	sufXML  = ".xml"
 )
 
-// ConvSetting is a pair of watched SXML's filepath and Settings applyed to this file
+// ConvSetting is watched SXML file's data
 type ConvSetting struct {
 	FilePath string
 	Settings *Settings
+	Updated  time.Time /* Due to library limitations, events may be sent twice.
+	refer to "Extending Fsnotify" in fsnotify https://fsnotify.org/
+	Use this "Updated" value to prevent double conversion. */
 }
 
-// WatchSetting is a pair of Watcher and list(map) of watched SXML files
+// WatchSetting is Watcher and watchlist(map) of watched SXML files
 type WatchSetting struct {
 	Watcher  *fsnotify.Watcher
-	WatchMap map[string]ConvSetting
+	WatchMap map[string]*ConvSetting
 }
 
 func main() {
@@ -35,11 +39,11 @@ func main() {
 			log.Fatal(err)
 		}
 		defer watcher.Close()
-		wset := WatchSetting{watcher, map[string]ConvSetting{}}
+		wset := WatchSetting{watcher, map[string]*ConvSetting{}}
 		walk(rootFlag, &Settings{}, wset)
-		// if not in watch mode, exit app
+
 		if !watchFlag {
-			break
+			break // exit main
 		}
 
 		log.Println("Watching...")
@@ -53,7 +57,12 @@ func main() {
 						reset = true
 					} else if ev.Op&fsnotify.Write != 0 {
 						if cs, ok := wset.WatchMap[ev.Name]; ok {
-							convXML(cs.FilePath, cs.Settings, initClasses)
+							now := time.Now()
+							// "Write" event within 0.5 second to the same file is regarded as duplicated.
+							if now.Sub(cs.Updated) > time.Second/2 {
+								convXML(cs.FilePath, cs.Settings, initClasses)
+								cs.Updated = now
+							}
 						}
 					}
 				} else if strings.HasSuffix(ev.Name, sufXCSS) {
@@ -102,13 +111,13 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 	for _, xml := range xmls {
 		xmlPath := filepath.Join(path, xml.Name())
 		convXML(xmlPath, sets, initClasses)
-		wset.WatchMap[xmlPath] = ConvSetting{xmlPath, sets}
+		wset.WatchMap[xmlPath] = &ConvSetting{xmlPath, sets, time.Now()}
 	}
 	for _, dir := range dirs {
 		fullPath := filepath.Join(path, dir.Name())
 		walk(fullPath, sets, wset)
 	}
-	//Register to the watcher last. Because it is not necessary to receive events of the first global conversion.
+	// Register to the watcher last. Because it is not necessary to receive events from the first global conversion.
 	err = wset.Watcher.Add(path)
 	if err != nil {
 		log.Fatal(err)
