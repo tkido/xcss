@@ -30,24 +30,18 @@ type WatchSetting struct {
 
 func main() {
 	for {
-		doWalk()
+		watcher, err := fsnotify.NewWatcher()
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer watcher.Close()
+		wset := WatchSetting{watcher, map[string]ConvSetting{}}
+		walk(rootFlag, &Settings{}, wset)
+		// if not in watch mode, exit app
 		if !watchFlag {
 			break
 		}
-	}
-}
 
-func doWalk() {
-	watcher, err := fsnotify.NewWatcher()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer watcher.Close()
-
-	wset := WatchSetting{watcher, map[string]ConvSetting{}}
-	walk(rootFlag, &Settings{}, wset)
-
-	if watchFlag {
 		log.Println("Watching...")
 	Loop:
 		for {
@@ -68,13 +62,14 @@ func doWalk() {
 					}
 				}
 				if reset {
-					log.Println("Now Reflesh! filesets for settings are modified.")
+					log.Println("Reflesh!!")
 					break Loop
 				}
 			case err = <-watcher.Errors:
 				log.Fatal(err)
 			}
 		}
+
 	}
 }
 
@@ -113,7 +108,7 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 		fullPath := filepath.Join(path, dir.Name())
 		walk(fullPath, sets, wset)
 	}
-
+	//Register to the watcher last. Because it is not necessary to receive events of the first global conversion.
 	err = wset.Watcher.Add(path)
 	if err != nil {
 		log.Fatal(err)
