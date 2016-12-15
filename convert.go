@@ -55,7 +55,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	conv(root, fileName, sets, ccs)
 
 	dir := filepath.Dir(path)
-	newName := strings.Replace(fileName, "_sxml.xml", ".xml", 1)
+	newName := strings.Replace(fileName, SXMLSuffix, XMLSuffix, 1)
 	newPath := filepath.Join(dir, newName)
 	log.Println("      to XML:" + newPath)
 

@@ -11,7 +11,7 @@ import (
 )
 
 func readCSS(path string, sets *Settings) {
-	log.Println("Read CSS:" + path)
+	log.Println("Read XCSS:" + path)
 	bs, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
@@ -23,7 +23,6 @@ func readCSS(path string, sets *Settings) {
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	parse(root, fileName, sets)
-	//log.Println(sets)
 }
 
 func parse(t *Tag, fileName string, sets *Settings) {
