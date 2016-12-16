@@ -7,7 +7,7 @@ import (
 )
 
 func comb(classes []string) []string {
-	//delete duplicate classes
+	// delete duplicate classes
 	dists := make([]string, 0, len(classes))
 	checked := map[string]bool{}
 	for _, c := range classes {
@@ -21,9 +21,37 @@ func comb(classes []string) []string {
 	classes = dists
 
 	sort.Sort(sort.Reverse(sort.StringSlice(classes)))
+	return getComb(classes)
+}
+
+// cache of bit pattern
+var bitsMemo = map[int][]int{}
+
+func getBits(n int) []int {
+	if cache, ok := bitsMemo[n]; ok {
+		return cache
+	}
+	count := 1 << uint(n)
+	bits := make([]int, count)
+	for i := 0; i < count; i++ {
+		bits[i] = i
+	}
+	sort.Sort(IntByBits(bits))
+	bitsMemo[n] = bits
+	return bits
+}
+
+// cache of combination of classes
+var combMemo = map[string][]string{}
+
+func getComb(classes []string) []string {
+	key := strings.Join(classes, ".")
+	if cache, ok := combMemo[key]; ok {
+		return cache
+	}
+
 	n := len(classes)
 	count := 1 << uint(n)
-
 	bits := getBits(n)
 
 	ss := make([]string, 1, count)
@@ -38,24 +66,9 @@ func comb(classes []string) []string {
 		sort.Strings(a)
 		ss = append(ss, "."+strings.Join(a, "."))
 	}
+
+	combMemo[key] = ss
 	return ss
-}
-
-//cache of bit pattern
-var bitsMemo = map[int][]int{}
-
-func getBits(n int) []int {
-	if bits, ok := bitsMemo[n]; ok {
-		return bits
-	}
-	count := 1 << uint(n)
-	bits := make([]int, count)
-	for i := 0; i < count; i++ {
-		bits[i] = i
-	}
-	sort.Sort(IntByBits(bits))
-	bitsMemo[n] = bits
-	return bits
 }
 
 //IntByBits []int sorted by bit count

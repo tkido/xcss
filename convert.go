@@ -92,7 +92,6 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 		}
 	}
 	ss := comb(ccs)
-	//log.Println(ss)
 
 	vmap := make(map[string]Value)
 	ids := []string{""}
