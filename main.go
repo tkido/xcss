@@ -21,7 +21,8 @@ const (
 type ConvSetting struct {
 	FilePath string
 	Settings *Settings
-	Updated  time.Time /* Due to library limitations, events may be sent twice.
+	Updated  time.Time
+	/* Due to library limitations, events may be sent twice.
 	refer to "Extending Fsnotify" in fsnotify https://fsnotify.org/
 	Use this "Updated" value to prevent double conversion. */
 }
@@ -66,7 +67,7 @@ func main() {
 						}
 					}
 				} else if strings.HasSuffix(ev.Name, sufXCSS) {
-					if ev.Op&fsnotify.Chmod == 0 {
+					if ev.Op&(fsnotify.Create|fsnotify.Write|fsnotify.Remove|fsnotify.Rename) != 0 {
 						reset = true
 					}
 				}
