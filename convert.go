@@ -76,12 +76,10 @@ func convXML(path string, sets *Settings, ccs []string) {
 func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 	var tipe, id string
 
-	//log.Println(t.Name.Local)
-
 	for _, a := range t.Attr {
 		switch a.Name.Local {
 		case "type":
-			tipe = a.Value
+			tipe = ":" + a.Value
 		case "id":
 			id = "#" + a.Value
 		case "class":
@@ -96,63 +94,61 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 	ss := comb(ccs)
 	//log.Println(ss)
 
-	if tipe != "" {
-		vmap := make(map[string]Value)
-		ids := []string{""}
-		if id != "" {
-			ids = append(ids, id)
-		}
-		for _, id := range ids {
-			for _, s := range ss {
-				if set, ok := (*sets)[tipe+id+s]; ok {
-					for k, v := range set.Map {
-						vmap[k] = v
-					}
-					// when tag's setting applies to multiple selectors,
-					// attributes are overwritten by stronger selectors,
-					// but children are appended
-					t.Children = append(t.Children, set.Children...)
-				}
-			}
-		}
-		for _, a := range t.Attr {
-			vmap[a.Name.Local] = Value{a.Value, From{fileName, "!THIS!"}}
-		}
-
-		as := []Attr{}
-		for k, v := range vmap {
-			as = append(as, Attr{Name: k, Value: v})
-		}
-		sort.Sort(AttrsByName(as))
-
-		if debugFlag {
-			need := false
-			buf := bytes.NewBufferString("\n")
-			if t.From.Name != "" {
-				need = true
-				fmt.Fprintf(buf, "<%s> from \"%s\" in \"%s\"\n", t.Name.Local, t.From.Selector, t.From.Name)
-			}
-			for _, a := range as {
-				if a.Value.From.Selector != "!THIS!" {
-					need = true
-					fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
-				}
-			}
-			if need {
-				c := []interface{}{xml.Comment(buf.Bytes())}
-				t.Children = append(c, t.Children...)
-			}
-		}
-
-		xas := []xml.Attr{}
-		for _, a := range as {
-			xas = append(xas, xml.Attr{
-				Name:  xml.Name{Space: "", Local: a.Name},
-				Value: a.Value.Value,
-			})
-		}
-		t.Attr = xas
+	vmap := make(map[string]Value)
+	ids := []string{""}
+	if id != "" {
+		ids = append(ids, id)
 	}
+	for _, id := range ids {
+		for _, s := range ss {
+			if set, ok := (*sets)[t.Name.Local+tipe+id+s]; ok {
+				for k, v := range set.Map {
+					vmap[k] = v
+				}
+				// when tag's setting applies to multiple selectors,
+				// attributes are overwritten by stronger selectors,
+				// but children are appended
+				t.Children = append(t.Children, set.Children...)
+			}
+		}
+	}
+	for _, a := range t.Attr {
+		vmap[a.Name.Local] = Value{a.Value, From{fileName, "!THIS!"}}
+	}
+
+	as := []Attr{}
+	for k, v := range vmap {
+		as = append(as, Attr{Name: k, Value: v})
+	}
+	sort.Sort(AttrsByName(as))
+
+	if debugFlag {
+		need := false
+		buf := bytes.NewBufferString("\n")
+		if t.From.Name != "" {
+			need = true
+			fmt.Fprintf(buf, "<%s> from \"%s\" in \"%s\"\n", t.Name.Local, t.From.Selector, t.From.Name)
+		}
+		for _, a := range as {
+			if a.Value.From.Selector != "!THIS!" {
+				need = true
+				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
+			}
+		}
+		if need {
+			c := []interface{}{xml.Comment(buf.Bytes())}
+			t.Children = append(c, t.Children...)
+		}
+	}
+
+	xas := []xml.Attr{}
+	for _, a := range as {
+		xas = append(xas, xml.Attr{
+			Name:  xml.Name{Space: "", Local: a.Name},
+			Value: a.Value.Value,
+		})
+	}
+	t.Attr = xas
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
