@@ -24,7 +24,13 @@ func readCSS(path string, sets *Settings) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	parse(root, fileName, sets)
+
+	// tags just under the root(<styles>) are recognized as styles
+	for _, v := range root.Children {
+		if tag, isTag := v.(*Tag); isTag {
+			parse(tag, fileName, sets)
+		}
+	}
 }
 
 func parse(t *Tag, fileName string, sets *Settings) {
@@ -59,16 +65,12 @@ func parse(t *Tag, fileName string, sets *Settings) {
 				for k, v := range vmap {
 					set.Map[k] = v
 				}
-				set.Children = append(set.Children, t.Children...)
+				// when there is a stronger setting for the same selector, children tags is overwritten
+				set.Children = t.Children
 			} else {
 				(*sets)[key] = &Setting{vmap, t.Children}
 			}
 		}
 	}
 
-	for _, v := range t.Children {
-		if tag, isTag := v.(*Tag); isTag {
-			parse(tag, fileName, sets)
-		}
-	}
 }

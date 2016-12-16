@@ -108,6 +108,9 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 					for k, v := range set.Map {
 						vmap[k] = v
 					}
+					// when tag's setting applies to multiple selectors,
+					// attributes are overwritten by stronger selectors,
+					// but children are appended
 					t.Children = append(t.Children, set.Children...)
 				}
 			}
