@@ -53,7 +53,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 
 	root := &Tag{}
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
-	conv(root, fileName, sets, ccs)
+	conv(root, sets, ccs)
 
 	dir := filepath.Dir(path)
 	newName := strings.Replace(fileName, sufSXML, sufXML, 1)
@@ -73,7 +73,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	file.Write(output)
 }
 
-func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
+func conv(t *Tag, sets *Settings, ccs []string) {
 	var tipe, id string
 
 	for _, a := range t.Attr {
@@ -111,8 +111,13 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 			}
 		}
 	}
+
+	from := From{"", ""}
+	if t.From.Selector != "" {
+		from = t.From
+	}
 	for _, a := range t.Attr {
-		vmap[a.Name.Local] = Value{a.Value, From{fileName, "!THIS!"}}
+		vmap[a.Name.Local] = Value{a.Value, from}
 	}
 
 	as := []Attr{}
@@ -129,7 +134,7 @@ func conv(t *Tag, fileName string, sets *Settings, ccs []string) {
 			fmt.Fprintf(buf, "<%s> from \"%s\" in \"%s\"\n", t.Name.Local, t.From.Selector, t.From.Name)
 		}
 		for _, a := range as {
-			if a.Value.From.Selector != "!THIS!" {
+			if a.Value.From.Selector != "" {
 				need = true
 				fmt.Fprintf(buf, "%s = \"%s\" from \"%s\" in \"%s\"\n", a.Name, a.Value.Value, a.Value.From.Selector, a.Value.From.Name)
 			}
