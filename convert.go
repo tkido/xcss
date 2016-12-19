@@ -156,7 +156,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
-			conv(tag, fileName, sets, ccs)
+			conv(tag, sets, ccs)
 		}
 	}
 }
