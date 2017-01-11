@@ -8,10 +8,11 @@ import (
 )
 
 var (
-	debugFlag bool
-	watchFlag bool
-	rootFlag  string
-	classFlag string
+	debugFlag  bool
+	watchFlag  bool
+	deleteFlag bool
+	rootFlag   string
+	classFlag  string
 
 	initClasses []string
 )
@@ -25,6 +26,7 @@ func init() {
 	flag.StringVar(&classFlag, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
 	flag.StringVar(&rootFlag, "r", ".", "short form of \"root\"")
 	flag.StringVar(&rootFlag, "root", ".", "path to start recursive walk")
+	flag.StringVar(&deleteFlag, "delete", false, "delete all XCSS and SXML files after conversion")
 	flag.Parse()
 
 	initClasses = []string{}

@@ -79,7 +79,10 @@ func main() {
 				log.Fatal(err)
 			}
 		}
+	}
 
+	if deleteFlag {
+		deleteFiles(rootFlag)
 	}
 }
 
@@ -122,5 +125,28 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 	err = wset.Watcher.Add(path)
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func deleteFiles(path string) {
+	fis, err := ioutil.ReadDir(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, fi := range fis {
+		if fi.IsDir() {
+			fullPath := filepath.Join(path, fi.Name())
+			deleteFiles(fullPath)
+		} else {
+			name := fi.Name()
+			if strings.HasSuffix(name, sufXCSS) || strings.HasSuffix(name, sufSXML) {
+				fullPath := filepath.Join(path, name)
+				err := os.Remove(fullPath)
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+		}
 	}
 }
