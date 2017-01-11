@@ -1,4 +1,5 @@
 <styles>
+	<!-- tags just under the root(<styles> tag) are recognized as styles -->
 	<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
 
 	<item type="text" />
