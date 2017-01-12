@@ -56,12 +56,3 @@ type Attr struct {
 	Name  string
 	Value Value
 }
-
-//AttrsByName is []Attr sorted by names in "attrsort.txt"
-type AttrsByName []Attr
-
-func (p AttrsByName) Len() int { return len(p) }
-func (p AttrsByName) Less(i, j int) bool {
-	return sortMap[p[i].Name] < sortMap[p[j].Name]
-}
-func (p AttrsByName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }

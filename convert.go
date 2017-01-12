@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"encoding/xml"
 	"fmt"
@@ -12,33 +11,6 @@ import (
 	"sort"
 	"strings"
 )
-
-var sortMap map[string]int
-
-func init() {
-	lines := readLines("attrSortOrder.txt")
-	sortMap = map[string]int{}
-	for i, line := range lines {
-		sortMap[line] = i
-	}
-}
-
-func readLines(path string) []string {
-	f, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-	lines := make([]string, 0, 100)
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-	return lines
-}
 
 func convXML(path string, sets *Settings, ccs []string) {
 	log.Println("Convert SXML:" + path)
@@ -119,13 +91,20 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 	for _, a := range t.Attr {
 		vmap[a.Name.Local] = Value{a.Value, from}
 	}
-
+	// convert to []Attr from map and sort
 	as := []Attr{}
 	for k, v := range vmap {
 		as = append(as, Attr{Name: k, Value: v})
 	}
-	sort.Sort(AttrsByName(as))
-
+	sort.Sort(AttrsByList(as))
+	// check typo
+	for _, a := range as {
+		_, ok := sortOrder[a.Name]
+		if !ok {
+			log.Printf("WARNING: \"%s\" is an unfamiliar attribute. Is not it typo?\n", a.Name)
+		}
+	}
+	// output debug comments
 	if debugFlag {
 		need := false
 		buf := bytes.NewBufferString("\n")
@@ -144,7 +123,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 			t.Children = append(c, t.Children...)
 		}
 	}
-
+	// convert to xml.Attr from Attr
 	xas := []xml.Attr{}
 	for _, a := range as {
 		xas = append(xas, xml.Attr{
@@ -153,7 +132,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 		})
 	}
 	t.Attr = xas
-
+	// apply recursively to children tags
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
 			conv(tag, sets, ccs)
