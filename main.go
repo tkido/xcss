@@ -106,7 +106,9 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 		}
 	}
 	if 0 < len(csss) {
+		log.Println((*sets)["widgets"])
 		sets = sets.Copy()
+		log.Println((*sets)["widgets"])
 		for _, css := range csss {
 			cssPath := filepath.Join(path, css.Name())
 			readCSS(cssPath, sets)

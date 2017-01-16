@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/gob"
 	"encoding/xml"
 	"io/ioutil"
 	"log"
@@ -23,6 +24,8 @@ func readCSS(path string, sets *Settings) {
 	fileName := fi.Name()
 
 	root := &Tag{}
+	gob.Register(*root)
+
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 
 	from := From{fileName, ""}

@@ -27,7 +27,7 @@ type Setting struct {
 
 // String from Setting
 func (set *Setting) String() string {
-	return fmt.Sprintf("%v\n", set.Map)
+	return fmt.Sprintf("%v\n%v\n", set.Map, set.Children)
 }
 
 //Settings is the settings from XCSSs
