@@ -71,7 +71,7 @@ func getComb(classes []string) []string {
 	return ss
 }
 
-//IntByBits []int sorted by bit count
+// IntByBits []int sorted by bit count
 type IntByBits []int
 
 func (p IntByBits) Len() int { return len(p) }
@@ -79,11 +79,11 @@ func (p IntByBits) Less(i, j int) bool {
 	if numOfBits(p[i]) == numOfBits(p[j]) {
 		return p[i] > p[j]
 	}
-	return numOfBits(p[i]) < numOfBits(p[j])
+	return numOfBits(p[i]) < numOfBits(p[j]) //intentional
 }
 func (p IntByBits) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
 
-//count the number of set bits
+// count the number of set bits
 func numOfBits(bits int) int {
 	bits = (bits & 0x55555555) + (bits >> 1 & 0x55555555)
 	bits = (bits & 0x33333333) + (bits >> 2 & 0x33333333)

@@ -44,7 +44,7 @@ func main() {
 		walk(rootFlag, &Settings{}, wset)
 
 		if !watchFlag {
-			break // exit main
+			break // exit main()
 		}
 
 		log.Println("Watching...")
@@ -106,9 +106,7 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 		}
 	}
 	if 0 < len(csss) {
-		log.Println((*sets)["widgets"])
 		sets = sets.Copy()
-		log.Println((*sets)["widgets"])
 		for _, css := range csss {
 			cssPath := filepath.Join(path, css.Name())
 			readCSS(cssPath, sets)
@@ -123,7 +121,8 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 		fullPath := filepath.Join(path, dir.Name())
 		walk(fullPath, sets, wset)
 	}
-	// Register to the watcher last. Because it is not necessary to receive events from the first global conversion.
+	// Register to the watcher last.
+	// Because it is unnecessary to receive events from the first global conversion.
 	err = wset.Watcher.Add(path)
 	if err != nil {
 		log.Fatal(err)

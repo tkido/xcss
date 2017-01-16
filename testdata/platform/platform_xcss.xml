@@ -16,6 +16,6 @@
 
 	<item type="text" id="title" class="foo bar" w="0" h="0" />
 
-	<!-- All comments are ignored -->
-	All texts are ignored
+	<!-- All comments are ignored. -->
+	All texts are ignored.
 </styles>

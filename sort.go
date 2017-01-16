@@ -14,8 +14,7 @@ func init() {
 
 // Enumerate all attributes that may appear in layout XMLs.
 // Attributes are sorted in the order they appear in this list.
-// If there are attributes that do not exist in this list,
-// you will get a warning in the log.
+// If there are attributes that do not exist in this list, it logs warning.
 var attributesList = `
 widget
 accessor

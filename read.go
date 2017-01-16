@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"encoding/gob"
 	"encoding/xml"
 	"io/ioutil"
 	"log"
@@ -24,14 +23,10 @@ func readCSS(path string, sets *Settings) {
 	fileName := fi.Name()
 
 	root := &Tag{}
-	gob.Register(*root)
-
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 
 	from := From{fileName, ""}
 	parse(root, from, sets, 0)
-
-	// log.Println(sets)
 }
 
 func parse(t *Tag, from From, sets *Settings, depth int) {
@@ -67,7 +62,7 @@ func parse(t *Tag, from From, sets *Settings, depth int) {
 			for k, v := range amap {
 				set.Map[k] = v
 			}
-			// when there is a stronger setting for the same selector, children tags is overwritten
+			// when there is a stronger setting for the same selector, child tags is overwritten
 			set.Children = t.Children
 		} else {
 			(*sets)[key] = &Setting{amap, t.Children}
