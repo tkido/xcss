@@ -27,26 +27,39 @@ type Setting struct {
 
 // String from Setting
 func (set *Setting) String() string {
-	return fmt.Sprintf("%v\n%v\n", set.Map, set.Children)
+	return fmt.Sprintf("%+v\n%+v\n", set.Map, set.Children)
+}
+
+// Copy returns copy of Setting
+func (set *Setting) Copy() *Setting {
+	copy := Setting{}
+	// Child elements of one selector may be replaced by same selector's one.
+	// but the element itself is never changed, so there is no problem with shallow copy
+	copy.Children = set.Children
+
+	var buf bytes.Buffer
+	enc := gob.NewEncoder(&buf)
+	dec := gob.NewDecoder(&buf)
+
+	err := enc.Encode(set.Map)
+	if err != nil {
+		log.Fatal("encode error:", err)
+	}
+	err = dec.Decode(&(copy.Map))
+	if err != nil {
+		log.Fatal("decode error:", err)
+	}
+	return &copy
 }
 
 //Settings is the settings from XCSSs
 type Settings map[string]*Setting
 
-// Copy returns deep copy of Settings
+// Copy returns copy of Settings
 func (sets *Settings) Copy() *Settings {
-	var buf bytes.Buffer
-	enc := gob.NewEncoder(&buf)
-	dec := gob.NewDecoder(&buf)
-
-	err := enc.Encode(sets)
-	if err != nil {
-		log.Fatal("encode error:", err)
-	}
-	var copy Settings
-	err = dec.Decode(&copy)
-	if err != nil {
-		log.Fatal("decode error:", err)
+	copy := Settings{}
+	for k, v := range *sets {
+		copy[k] = v.Copy()
 	}
 	return &copy
 }
