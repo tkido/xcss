@@ -41,9 +41,9 @@ func main() {
 		}
 		defer watcher.Close()
 		wset := WatchSetting{watcher, map[string]*ConvSetting{}}
-		walk(rootFlag, &Settings{}, wset)
+		walk(flags.Root, &Settings{}, wset)
 
-		if !watchFlag {
+		if !flags.Watch {
 			break // exit main()
 		}
 
@@ -61,7 +61,7 @@ func main() {
 							now := time.Now()
 							// "Write" event within 0.5 second to the same file is regarded as duplicated.
 							if now.Sub(cs.Updated) > time.Second/2 {
-								convXML(cs.FilePath, cs.Settings, initClasses)
+								convXML(cs.FilePath, cs.Settings, flags.Classes)
 								cs.Updated = now
 							}
 						}
@@ -81,8 +81,8 @@ func main() {
 		}
 	}
 
-	if deleteFlag {
-		deleteFiles(rootFlag)
+	if flags.Delete {
+		deleteFiles(flags.Root)
 	}
 }
 
@@ -114,7 +114,7 @@ func walk(path string, sets *Settings, wset WatchSetting) {
 	}
 	for _, xml := range xmls {
 		xmlPath := filepath.Join(path, xml.Name())
-		convXML(xmlPath, sets, initClasses)
+		convXML(xmlPath, sets, flags.Classes)
 		wset.WatchMap[xmlPath] = &ConvSetting{xmlPath, sets, time.Now()}
 	}
 	for _, dir := range dirs {

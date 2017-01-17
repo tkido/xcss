@@ -7,40 +7,41 @@ import (
 	"strings"
 )
 
-var (
-	debugFlag  bool
-	deleteFlag bool
-	classFlag  string
-	rootFlag   string
-	watchFlag  bool
+// Flags keeps settings from commandline
+type Flags struct {
+	Debug   bool
+	Delete  bool
+	Root    string
+	Watch   bool
+	Classes []string
+}
 
-	initClasses []string
-)
+var flags Flags
 
 func init() {
-	flag.BoolVar(&debugFlag, "d", false, "short form of \"debug\"")
-	flag.BoolVar(&debugFlag, "debug", false, "add comment where attribute's value came from")
-	flag.BoolVar(&deleteFlag, "delete", false, "delete all XCSS and SXML files after conversion")
-	flag.BoolVar(&watchFlag, "w", false, "short form of \"watch\"")
-	flag.BoolVar(&watchFlag, "watch", false, "watch \"xcss\" and \"sxml\" files and run convert when these files are changed")
-	flag.StringVar(&classFlag, "c", "", "short form of \"class\"")
-	flag.StringVar(&classFlag, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
-	flag.StringVar(&rootFlag, "r", ".", "short form of \"root\"")
-	flag.StringVar(&rootFlag, "root", ".", "path to start recursive walk")
+	var class string
 
+	flag.StringVar(&class, "c", "", "short form of \"class\"")
+	flag.StringVar(&class, "class", "", "classes apply to all elements. separator is space e.g. \"foo bar\"")
+	flag.BoolVar(&flags.Debug, "d", false, "short form of \"debug\"")
+	flag.BoolVar(&flags.Debug, "debug", false, "add comment where attribute's value came from")
+	flag.BoolVar(&flags.Delete, "delete", false, "delete all XCSS and SXML files after conversion")
+	flag.StringVar(&flags.Root, "r", ".", "short form of \"root\"")
+	flag.StringVar(&flags.Root, "root", ".", "path to start recursive walk")
+	flag.BoolVar(&flags.Watch, "w", false, "short form of \"watch\"")
+	flag.BoolVar(&flags.Watch, "watch", false, "watch \"xcss\" and \"sxml\" files and run convert when these files are changed")
 	flag.Parse()
 
-	initClasses = []string{}
-	if len(classFlag) > 0 {
-		initClasses = strings.Split(classFlag, " ")
+	if len(class) > 0 {
+		flags.Classes = strings.Split(class, " ")
 	}
 
-	fi, err := os.Stat(rootFlag)
+	fi, err := os.Stat(flags.Root)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if !fi.IsDir() {
-		log.Fatal(rootFlag + " is not Directory!!")
+		log.Fatal(flags.Root + " is not Directory!!")
 	}
 
 }

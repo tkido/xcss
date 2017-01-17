@@ -105,7 +105,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 		}
 	}
 	// output debug comments
-	if debugFlag {
+	if flags.Debug {
 		need := false
 		buf := bytes.NewBufferString("\n")
 		if t.From.Name != "" {
@@ -132,7 +132,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 		})
 	}
 	t.Attr = xas
-	// apply recursively to children tags
+	// apply recursively to child tags
 	for _, v := range t.Children {
 		if tag, isTag := v.(*Tag); isTag {
 			conv(tag, sets, ccs)
