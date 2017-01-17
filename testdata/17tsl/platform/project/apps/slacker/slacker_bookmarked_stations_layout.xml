@@ -43,7 +43,24 @@
 			<!-- header area -->
 			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
 			<!-- title -->
-			<item type="text" id="header_text" x="20" w="386" h="84" fontcolor="0xFFFFFFFF" fontsize="30"/>
+			<item type="text" id="header_text" x="20" w="266" h="84" fontcolor="0xFFFFFFFF" fontsize="30"/>
+
+			<!-- edit button -->
+			<item type="button" id="edit_button" x="314" w="114" h="76" userstates="1">
+				<item type="image" id="edit_image" w="120" h="76" imageurl="@DNA/common/btn_navigation_bar_small.png"/>
+				<item type="text" id="edit_text" x="10" y="27" w="100" h="26" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[SLACKER_TEXTBUTTON_EDIT]"/>
+				<states>
+					<state user="0" touch="disabled">
+						<update widget="edit_image" value0="152" type="srcy"/>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="edit_image" value0="0" type="srcy"/>
+					</state>
+					<state user="0" touch="action">
+						<update widget="edit_image" value0="76" type="srcy"/>
+					</state>
+				</states>
+			</item>
 	
 	        <!-- back button -->
 	        <item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
@@ -77,8 +94,7 @@
 	                    <item type="image" id="list_bg_image" imageurl="@DNA/common/btn_list5_full.png" w="464" h="68"/>
                         <item type="image" id="list_icon_bg" imageurl="" w="68" h="68"/>
 	                    <item type="image" id="list_icon" imageurl="" x="6" y="6" w="56" h="56"/>
-	                    <item type="text" id="list_text" x="74" y="19" w="304" fontcolor="0xFF000000" fontsize="30"/>
-	                    <item type="image" id="list_icon_remove" imageurl="" x="402" y="0" w="68" h="68"/>
+	                    <item type="text" id="list_text" x="74" y="19" w="372" fontcolor="0xFF000000" fontsize="30"/>
 	                    <states>
 	                        <state user="0" touch="disabled">
 	                            <update widget="list_bg_image" value0="136" type="srcy"/>
@@ -92,10 +108,9 @@
 	                    </states>
 	                </item>
                     <update widget="list_icon_bg" accessor="list_icon_bg5" type="imageurl"/>
-	                <update widget="list_icon" accessor="image" type="imageurl"/>
+                    <update widget="list_icon" accessor="image" type="imageurl"/>
 	                <update widget="list_text" accessor="name" type="text"/>
 	                <update widget="list_text" accessor="0" type="textcolor"/>
-	                <update widget="list_icon_remove" accessor="list_icon_remove" type="imageurl"/>
 	            </item>
 			</item>
 	    </item>

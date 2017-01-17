@@ -1,0 +1,71 @@
+<pane>
+	<widgets>
+		<item type="composite" w="370" h="386">
+			<item type="image" id="bgimage" w="370" h="386" imageurl="@DNA/common/bg_miniplayer_half.png"/>
+
+			<item type="image" id="appicon" x="12" y="10" w="40" h="40" src-w="50" src-h="50" imageurl="@STA/statusbar/icon_statusbar_slacker.png"/>
+			<item type="text" id="appname" x="65" y="18" w="285" h="24" fontsize="24" fontcolor="0xFFFFFFFF"/>
+
+	        <item type="composite" x="115" y="50" w="140" h="140">
+	            <item type="image" id="bg_art" w="140" h="140" imageurl="@DNA/common/bg_miniplayer_album.png"/>
+                <item type="image" id="stn_art" x="14" y="12" w="112" h="112" imageurl="asdf"/>
+                <item type="image" id="dd_art" x="14" y="12" w="112" h="112" imageurl="asdf"/>
+	        </item>
+			<item type="text" id="song_title" x="20" y="190" w="330" h="30" alignment="center"/>
+			<item type="text" id="artist_name" x="20" y="228" w="330" h="24" alignment="center"/>
+			<item type="text" id="station_name" x="20" y="260" w="330" h="24" alignment="center"/>
+
+            <item type="text" id="status_text" x="20" y="190" w="330" h="30" alignment="center"/>
+
+			<!-- control button -->
+			<item type="button" id="btn_back" x="14" y="296" w="94" h="88" userstates="1">
+				<item type="image" id="image_back" w="94" h="88" imageurl="@DNA/common/btn_skip_back.png"/>
+				<states>
+					<state user="0" touch="disabled">
+						<update widget="image_back" value0="176" type="srcy"/>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="image_back" value0="0" type="srcy"/>
+					</state>
+					<state user="0" touch="action">
+						<update widget="image_back" value0="88" type="srcy"/>
+					</state>
+				</states>
+			</item>
+			
+			<item type="button" id="btn_playback" x="129" y="296" w="112" h="88" userstates="1">
+				<item type="image" id="image_playback" w="112" h="88" imageurl="@DNA/common/btn_play.png"/>
+				<states>
+					<state user="0" touch="disabled">
+						<update widget="image_playback" value0="176" type="srcy"/>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="image_playback" value0="0" type="srcy"/>
+					</state>
+					<state user="0" touch="action">
+						<update widget="image_playback" value0="88" type="srcy"/>
+					</state>
+				</states>
+			</item>
+			
+			<item type="button" id="btn_skip" x="244" y="296" w="112" h="88" userstates="1">
+				<item type="image" id="image_skip" w="112" h="88" imageurl="@DNA/common/btn_skip_forward.png"/>
+				<states>
+					<state user="0" touch="disabled">
+						<update widget="image_skip" value0="176" type="srcy"/>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="image_skip" value0="0" type="srcy"/>
+					</state>
+					<state user="0" touch="action">
+						<update widget="image_skip" value0="88" type="srcy"/>
+					</state>
+				</states>
+			</item>
+			<item type="text" id="skip_count" x="326" y="347" w="30" fontcolor="0xFFFEFEFF" fontsize="26" alignment="center" text="6"/>
+
+			<item type="image" id="loadingbgimage" y="50" w="370" h="336" src-y="50" imageurl="@DNA/common/bg_miniplayer_half.png"/>
+			<item type="text" id="loading" x="0" y="50" w="370" h="336" fontsize="26" alignment="center"/>
+		</item>
+	</widgets>
+</pane>

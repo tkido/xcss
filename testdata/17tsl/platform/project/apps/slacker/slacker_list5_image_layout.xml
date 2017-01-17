@@ -77,8 +77,7 @@
 	                    <item type="image" id="list_bg_image" imageurl="@DNA/common/btn_list5_full.png" w="464" h="68"/>
                         <item type="image" id="list_icon_bg" imageurl="" w="68" h="68"/>
 	                    <item type="image" id="list_icon" imageurl="" x="6" y="6" w="56" h="56"/>
-	                    <item type="text" id="list_text" x="74" y="19" w="304" fontcolor="0xFF000000" fontsize="30"/>
-	                    <item type="image" id="list_icon_remove" imageurl="" x="402" y="0" w="68" h="68"/>
+	                    <item type="text" id="list_text" x="74" y="19" w="372" fontcolor="0xFF000000" fontsize="30"/>
 	                    <states>
 	                        <state user="0" touch="disabled">
 	                            <update widget="list_bg_image" value0="136" type="srcy"/>
@@ -95,7 +94,6 @@
 	                <update widget="list_icon" accessor="image" type="imageurl"/>
 	                <update widget="list_text" accessor="name" type="text"/>
 	                <update widget="list_text" accessor="0" type="textcolor"/>
-	                <update widget="list_icon_remove" accessor="list_icon_remove" type="imageurl"/>
 	            </item>
 			</item>
 	    </item>
