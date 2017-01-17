@@ -1,21 +1,37 @@
 <styles>
-	<!-- tags just under the root(<styles> tag) are recognized as styles -->
-	<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
+	<!-- Tags just under the root(<styles> tag) are recognized as styles -->
 
-	<item type="text" />
+	<name type="type" id="id" class="foo bar" x="0" y="0" />
+	<!-- tag's "name" and attributes "type", "id", "class" are handled specially.
+	They are used to determine the tag to which the setting applies.
+	Other attributes(in this example, x, y) are treated as simple values.	-->
+
+	<!-- Set text widget's default "fontsize" to "M" -->
+	<item type="text" fontsize="M" />
+
+	<!-- Resize text fontsize with specific id -->
 	<item type="text" id="title" fontsize="L" />
 
+	<!-- Setting changed according to class-->
 	<item type="text" class="day" fontcolor="BLACK"/>
 	<item type="text" class="night" fontcolor="WHITE"/>
 
-	<item type="text" class="day forest" fontcolor="GREEN"/>
-	<item type="text" class="night forest" fontcolor="PARPLE"/>
+	<!-- It is possible to set classes semantically separated into "positions" and "colors", for example -->
+	<item type="text" class="left" x="0" y="0" />
+	<item type="text" class="right" x="400" y="0" />
 
-	<item type="text" class="foo" w="2" h="2" />
-	<item type="text" class="foo bar" w="3" h="3" />
+	<!-- Setting multiple classes. Applies to tags where all classes are set -->
+	<item type="text" class="day disabled" fontcolor="GRAY"/>
+	<item type="text" class="night disabled" fontcolor="PARPLE"/>
 
-	<item type="text" id="title" class="foo bar" w="0" h="0" />
+	<!-- Setting child elements -->
+	<widgets>
+		<!-- Common background image on any screen -->
+		<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
+		<!-- This "item" tag is only the setting value of the "widgets" selector
+		Remember, tags just under the root(<styles> tag) are recognized as styles -->
+	<widgets>
 
-	<!-- All comments are ignored. -->
-	All texts are ignored.
+	<!-- in xcss file, all comments are ignored. -->
+	in xcss file, all texts are ignored.
 </styles>
