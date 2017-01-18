@@ -26,8 +26,8 @@
 
 	<!-- Setting child elements -->
 	<widgets>
-		<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
 		<!-- Common background image on any screen -->
+		<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
 		<!-- This "item" tag is only the setting value of the "widgets" selector
 		Remember, tags just under the root(<styles> tag) are recognized as styles -->
 	</widgets>

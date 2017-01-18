@@ -1,8 +1,8 @@
 <pane>
-	<!-- class definition also has effects to descendant elements -->
+	<!-- Class definition also has effects to descendant elements -->
 	<widgets class="day">
+		<!-- The "day" class has effects on the following three -->
 		<item type="text" id="title" text="It is title text!!" />
-
 		<item type="text" text="It is normal text." />
 		<item type="text" class="disabled" text="It is disabled text." />
 	</widgets>

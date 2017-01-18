@@ -2,15 +2,10 @@
 	<!-- The setting described in lower path is stronger.
 	If there is a setting for the same selector as that written in "platform_xcss.xml",
 	it will added. If the attribute is also the same, it will be overwritten -->
-	
+
 	<!-- Add "fontcolor" setting -->
 	<item type="text" id="title" fontcolor="RED" />
 
 	<!-- Overwrite text widget's default "fontsize" to "M" -->
 	<item type="text" fontsize="M" />
-
-
-
-
-
 </styles>
