@@ -121,6 +121,9 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 		if need {
 			c := []interface{}{xml.Comment(buf.Bytes())}
 			t.Children = append(c, t.Children...)
+			// Tag that have already output debug comment reset their "From" value.
+			// In order not to output multiple times.
+			t.From = From{}
 		}
 	}
 	// convert to xml.Attr from Attr
