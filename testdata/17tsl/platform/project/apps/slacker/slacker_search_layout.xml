@@ -2,20 +2,20 @@
 	<resources>
 		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc"/>
 	</resources>
-	
+
 	<widgets>
 		<!-- background -->
 		<item type="image" id="background_image" imageurl="@DNA/common/bg.png" w="800" h="416"/>
-		
+
 		<!-- side menu -->
 		<item type="image" id="sidemenu_bg_image" imageurl="@DNA/common/bg_submenu.png" x="0" y="0" w="272" h="416"/>
-		
+
 		<!-- highlight -->
 		<item type="alignmentcontainer" id="highlight" w="272" h="94" layout="column" alignment="top" autoarrange="true">
 			<item type="box" id="highlight_box" w="272"/>
 			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" w="272" h="94"/>
 		</item>
-		
+
 		<item type="itemgroup" id="sidemenu" direction="vertical" alignment="top" x="0" y="7" w="192" h="402" min-w="192" max-w="192" min-h="67" max-h="67" max-padding="1">
 			<item type="button" id="list_button" w="272" h="67" userstates="1">
 				<item type="image" id="button_bg" imageurl="@DNA/common/btn_submenu6.png" w="272" h="67"/>
@@ -34,16 +34,16 @@
 				</states>
 			</item>
 			<update widget="list_button" accessor="button" type="custom"/>
-            <update widget="button_text" accessor="label" type="text"/>
-            <update widget="button_text" accessor="sidemenu_text" type="textcolor"/>
-            <update widget="button_text" accessor="sidemenu_textsize" type="textsize"/>
-            <update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
+			<update widget="button_text" accessor="label" type="text"/>
+			<update widget="button_text" accessor="sidemenu_text" type="textcolor"/>
+			<update widget="button_text" accessor="sidemenu_textsize" type="textsize"/>
+			<update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
 		</item>
-		
+
 		<item type="composite" x="272" y="0" w="528" h="416">
 			<!-- header area -->
 			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
-			
+
 			<!-- edit button -->
 			<item type="button" id="search_button" y="0" w="448" h="76" userstates="1">
 				<item type="image" id="search_image" w="448" h="76" src-w="434" src-h="76" leftdim="68" leftsize="68" rightdim="25" rightsize="25" imageurl="@DNA/common/bg_navigation_bar_search.png"/>
@@ -60,7 +60,7 @@
 				</states>
 			</item>
 			<item type="editbox" id="search_editbox" y="0" w="448" h="76" bgimage="search_button" left="68" right="25" hintsize="M" maxchar="128"/>
-		
+
 			<!-- delete button -->
 			<item type="button" id="delete_button" x="448" w="80" h="76" userstates="1">
 				<item type="image" id="delete_image" imageurl="@DNA/common/btn_navigation_bar_clear.png" w="80" h="76"/>
@@ -76,12 +76,12 @@
 					</state>
 				</states>
 			</item>
-					
+
 			<!-- content area -->
 			<item type="image" id="scrollbar_bg_image" imageurl="@DNA/common/bg_scroll_bar.png" x="464" y="76" w="64" h="340"/>
 			<!-- noresult message -->
 			<item type="text" id="noresult_text" y="76" w="464" h="68" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[GLOBAL_NO_RESULT]"/>
-	
+
 			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">
 				<scrollbar side="right" size="64">
 					<top type="image" id="scrollbar_top" imageurl="@DNA/common/btn_scroll_top.png" w="64" h="74" src-h="74"/>
@@ -105,7 +105,7 @@
 							</state>
 						</states>
 					</item>
-                    <update widget="list_icon" accessor="list_icon_recent" type="imageurl"/>
+					<update widget="list_icon" accessor="list_icon_recent" type="imageurl"/>
 					<update widget="list_text" accessor="term" type="text"/>
 					<update widget="list_text" accessor="0" type="textcolor"/>
 				</item>
