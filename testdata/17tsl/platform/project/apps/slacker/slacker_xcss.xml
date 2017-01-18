@@ -1,9 +1,26 @@
 <styles>
-	<item type="image" id="sidemenu_bg_image" imageurl="@DNA/common/bg_submenu.png" x="0" y="0" w="272" h="416"/>
+	<!-- common resource -->
+	<resources>
+		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc" />
+	</resources>
 
-		<item type="alignmentcontainer" id="highlight" w="272" h="94" layout="column" alignment="top" autoarrange="true">
-			<item type="box" id="highlight_box" w="272"/>
-			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" w="272" h="94"/>
-		</item>
+	<!-- back button -->
+	<item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
+		<item type="image" id="back_image" imageurl="@DNA/common/btn_navigation_bar_back.png" w="94" h="76"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="back_image" value0="152" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="back_image" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="back_image" value0="76" type="srcy"/>
+			</state>
+		</states>
+	</item>
+
+
+
 
 </styles>

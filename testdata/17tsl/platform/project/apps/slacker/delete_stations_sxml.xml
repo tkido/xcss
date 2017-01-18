@@ -1,0 +1,88 @@
+<pane>
+	<resources>
+	</resources>
+
+	<widgets>
+		<!-- background -->
+		<item type="image" id="background_image" imageurl="@DNA/common/bg.png" x="0" y="0" w="800" h="416"/>
+
+		<!-- side menu -->
+		<item type="image" id="sidemenu_bg_image" imageurl="@DNA/common/bg_submenu.png" x="0" y="0" w="272" h="416"/>
+
+		<item type="alignmentcontainer" id="highlight" w="272" h="94" layout="column" alignment="top" autoarrange="true">
+			<item type="box" id="highlight_box" w="272"/>
+			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" w="272" h="94"/>
+		</item>
+
+		<item type="itemgroup" id="sidemenu" direction="vertical" alignment="top" x="0" y="7" w="192" h="402" min-w="192" max-w="192" min-h="67" max-h="67" max-padding="1">
+			<item type="button" id="list_button" w="272" h="67" userstates="1">
+				<item type="image" id="button_bg" imageurl="@DNA/common/btn_submenu6.png" w="272" h="67"/>
+				<item type="image" id="button_icon" imageurl="asdf" w="80" h="67"/>
+				<item type="text" id="button_text" text="button" x="97" w="170" h="67" fontcolor="0xFFFFFFFF"/>
+				<states ref="sidemenu_button">
+					<state user="0" touch="disabled">
+						<update widget="button_bg" value0="134" type="srcy"/>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="button_bg" value0="0" type="srcy"/>
+					</state>
+					<state user="0" touch="action">
+						<update widget="button_bg" value0="67" type="srcy"/>
+					</state>
+				</states>
+			</item>
+			<update widget="list_button" accessor="button" type="custom"/>
+			<update widget="button_text" accessor="label" type="text"/>
+			<update widget="button_text" accessor="sidemenu_text" type="textcolor"/>
+			<update widget="button_text" accessor="sidemenu_textsize" type="textsize"/>
+			<update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
+		</item>
+
+		<item type="composite" x="272" y="0" w="528" h="416">
+			<!-- header area -->
+			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
+			<!-- title -->
+			<item type="text" id="header_text" x="20" w="386" h="84" fontcolor="0xFFFFFFFF" fontsize="30"/>
+
+			<item type="button" id="back_button" />
+
+			<!-- content area -->
+			<item type="image" id="scrollbar_bg_image" imageurl="@DNA/common/bg_scroll_bar.png" x="464" y="76" w="64" h="340"/>
+			<!-- noresult message -->
+			<item type="text" id="noresult_text" y="76" w="464" h="68" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[GLOBAL_NO_RESULT]"/>
+
+			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">
+				<scrollbar side="right" size="64">
+					<top type="image" id="scrollbar_top" imageurl="@DNA/common/btn_scroll_top.png" w="64" h="74" src-h="74"/>
+					<thumb type="image" id="scrollbar_thumb" imageurl="@DNA/common/bg_scroll_marker.png" w="64" h="48"/>
+					<bottom type="image" id="scrollbar_bottom" imageurl="@DNA/common/btn_scroll_btm.png" w="64" h="74" src-h="74"/>
+				</scrollbar>
+				<item type="list" id="content_list" direction="top" visiblerows="5" fill="normal-page" visiblecolumns="1" itemwidth="464" itemheight="68">
+					<item type="button" id="list_button" w="464" h="68" userstates="1" emptydraw="true">
+						<item type="image" id="list_bg_image" imageurl="@DNA/common/btn_list5_full.png" w="464" h="68"/>
+						<item type="image" id="list_icon_bg" imageurl="" w="68" h="68"/>
+						<item type="image" id="list_icon" imageurl="" x="6" y="6" w="56" h="56"/>
+						<item type="text" id="list_text" x="74" y="19" w="304" fontcolor="0xFF000000" fontsize="30"/>
+						<item type="image" id="list_icon_remove" imageurl="" x="402" y="0" w="68" h="68"/>
+						<states>
+							<state user="0" touch="disabled">
+								<update widget="list_bg_image" value0="136" type="srcy"/>
+							</state>
+							<state user="0" touch="idle">
+								<update widget="list_bg_image" value0="0" type="srcy"/>
+							</state>
+							<state user="0" touch="action">
+								<update widget="list_bg_image" value0="68" type="srcy"/>
+							</state>
+						</states>
+					</item>
+					<update widget="list_icon_bg" accessor="list_icon_bg5" type="imageurl"/>
+					<update widget="list_icon" accessor="image" type="imageurl"/>
+					<update widget="list_text" accessor="name" type="text"/>
+					<update widget="list_text" accessor="0" type="textcolor"/>
+					<update widget="list_icon_remove" accessor="list_icon_remove" type="imageurl"/>
+				</item>
+			</item>
+		</item>
+	</widgets>
+</pane>
