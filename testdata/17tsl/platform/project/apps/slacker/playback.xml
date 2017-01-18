@@ -1,5 +1,7 @@
 <pane>
-	<resources></resources>
+	<resources>
+		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc"></require>
+	</resources>
 	<widgets>
 		<item type="image" id="background_image" w="800" h="416" imageurl="@DNA/common/bg.png"></item>
 		<item type="image" id="sidemenu_bg_image" x="0" y="0" w="272" h="416" imageurl="@DNA/common/bg_submenu.png"></item>

@@ -1,5 +1,5 @@
 <pane>
-	<widgets>
+	<widgets class="miniapp">
 		<item type="composite" w="370" h="178">
 			<item type="image" id="bgimage" w="370" h="178" imageurl="@DNA/common/bg_miniplayer_quarter.png"/>
 

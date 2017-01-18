@@ -1,7 +1,9 @@
 <pane>
-	<resources></resources>
+	<resources>
+		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc"></require>
+	</resources>
 	<widgets>
-		<item type="image" id="background_image" x="0" y="0" w="800" h="416" imageurl="@DNA/common/bg.png"></item>
+		<item type="image" id="background_image" w="800" h="416" imageurl="@DNA/common/bg.png"></item>
 		<item type="image" id="sidemenu_bg_image" x="0" y="0" w="272" h="416" imageurl="@DNA/common/bg_submenu.png"></item>
 		<item type="alignmentcontainer" id="highlight" w="272" h="94" layout="column" alignment="top" autoarrange="true">
 			<item type="box" id="highlight_box" w="272"></item>
@@ -48,7 +50,20 @@
 					</state>
 				</states>
 			</item>
-			<item type="button" id="back_button"></item>
+			<item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
+				<item type="image" id="back_image" w="94" h="76" imageurl="@DNA/common/btn_navigation_bar_back.png"></item>
+				<states>
+					<state user="0" touch="disabled">
+						<update widget="back_image" value0="152" type="srcy"></update>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="back_image" value0="0" type="srcy"></update>
+					</state>
+					<state user="0" touch="action">
+						<update widget="back_image" value0="76" type="srcy"></update>
+					</state>
+				</states>
+			</item>
 			<item type="image" id="scrollbar_bg_image" x="464" y="76" w="64" h="340" imageurl="@DNA/common/bg_scroll_bar.png"></item>
 			<item type="text" id="noresult_text" y="76" w="464" h="68" fontsize="26" fontcolor="0xFFFFFFFF" alignment="center" text="$[GLOBAL_NO_RESULT]"></item>
 			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">

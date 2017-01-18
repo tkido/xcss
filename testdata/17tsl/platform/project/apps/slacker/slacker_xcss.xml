@@ -4,6 +4,29 @@
 		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc" />
 	</resources>
 
+	<!-- normal app common background widgets -->
+	<widgets class="app">
+		<!-- background -->
+		<item type="image" id="background_image" imageurl="@DNA/common/bg.png" w="800" h="416"/>
+		<!-- side menu -->
+		<item type="image" id="sidemenu_bg_image" imageurl="@DNA/common/bg_submenu.png" y="0" h="416"/>
+		<!-- highlight -->
+		<item type="alignmentcontainer" id="highlight" h="94" layout="column" alignment="top" autoarrange="true">
+			<item type="box" id="highlight_box" />
+			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" h="94"/>
+		</item>
+	</widgets>
+
+		<item type="image" id="sidemenu_bg_image" class="toyota" x="0" w="272" />
+		<item type="image" id="sidemenu_bg_image" class="lexus" x="40" w="192" />
+		<item type="alignmentcontainer" id="highlight" class="toyota" w="272" />
+			<item type="box" id="highlight_box" class="toyota" w="272"/>
+			<item type="image" id="highlight_image" class="toyota" w="272"/>
+		<item type="alignmentcontainer" id="highlight" class="lexus" w="192" />
+			<item type="box" id="highlight_box" class="lexus" w="192"/>
+			<item type="image" id="highlight_image" class="lexus" w="192"/>
+
+
 	<!-- back button -->
 	<item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
 		<item type="image" id="back_image" imageurl="@DNA/common/btn_navigation_bar_back.png" w="94" h="76"/>

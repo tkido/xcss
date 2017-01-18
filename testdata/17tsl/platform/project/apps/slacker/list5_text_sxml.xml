@@ -2,18 +2,7 @@
 	<resources>
 	</resources>
 
-	<widgets>
-		<!-- background -->
-		<item type="image" id="background_image" imageurl="@DNA/common/bg.png" x="0" y="0" w="800" h="416"/>
-
-		<!-- side menu -->
-		<item type="image" id="sidemenu_bg_image" imageurl="@DNA/common/bg_submenu.png" x="0" y="0" w="272" h="416"/>
-
-		<item type="alignmentcontainer" id="highlight" w="272" h="94" layout="column" alignment="top" autoarrange="true">
-			<item type="box" id="highlight_box" w="272"/>
-			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" w="272" h="94"/>
-		</item>
-
+	<widgets class="app">
 		<item type="itemgroup" id="sidemenu" direction="vertical" alignment="top" x="0" y="7" w="192" h="402" min-w="192" max-w="192" min-h="67" max-h="67" max-padding="1">
 			<item type="button" id="list_button" w="272" h="67" userstates="1">
 				<item type="image" id="button_bg" imageurl="@DNA/common/btn_submenu6.png" w="272" h="67"/>
