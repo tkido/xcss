@@ -1,7 +1,11 @@
 <pane>
 	<widgets>
-		<item type="image" id="background">
-			<item type="image" />
-		</item>
+		<!-- Both "id" and "class" can be set -->
+		<item type="text" id="title" class="right" text="It is title text!!" />
+
+		<item type="text" text="It is normal text." />
+		
+		<!-- Multiple classes can be set -->
+		<item type="text" class="right night disabled" text="It is disabled text." />
 	</widgets>
 </pane>

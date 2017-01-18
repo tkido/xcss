@@ -1,8 +1,8 @@
 <pane>
 	<widgets>
-		<item type="image" id="background">
-			<item type="image"></item>
-		</item>
 		<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"></item>
+		<item type="text" id="title" x="400" fontsize="L" fontcolor="RED" text="It is title text!!"></item>
+		<item type="text" fontsize="M" text="It is normal text."></item>
+		<item type="text" x="400" fontsize="M" fontcolor="PARPLE" text="It is disabled text."></item>
 	</widgets>
 </pane>

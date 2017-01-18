@@ -1,2 +1,7 @@
 <styles>
+  <!-- The setting described in lower path is stronger.
+  This xcss file is effective and strongest in "foo" folder -->
+
+  <!-- Overwrite text widget's default "fontsize" to "L" -->
+  <item type="text" fontsize="L" />
 </styles>
