@@ -79,7 +79,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 				// when tag's setting applies to multiple selectors,
 				// attributes are overwritten by stronger selectors,
 				// but children are appended
-				t.Children = append(t.Children, set.Children...)
+				t.Children = append(set.Children, t.Children...)
 			}
 		}
 	}
