@@ -129,6 +129,10 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 	// convert to xml.Attr from Attr
 	xas := []xml.Attr{}
 	for _, a := range as {
+		// delete "class" attribute from converted xml
+		if a.Name == "class" {
+			continue
+		}
 		xas = append(xas, xml.Attr{
 			Name:  xml.Name{Space: "", Local: a.Name},
 			Value: a.Value.Value,
