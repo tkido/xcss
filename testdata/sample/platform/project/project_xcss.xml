@@ -1,3 +1,16 @@
 <styles>
-	<item type="image" id="background_image" imageurl="@DNA/common/bg.png" x="0" y="0" w="800" h="416"/>
+	<!-- The setting described in lower path is stronger.
+	If there is a setting for the same selector as that written in "platform_xcss.xml",
+	it will added. If the attribute is also the same, it will be overwritten -->
+	
+	<!-- Add "fontcolor" setting -->
+	<item type="text" id="title" fontcolor="RED" />
+
+	<!-- Overwrite text widget's default "fontsize" to "M" -->
+	<item type="text" fontsize="M" />
+
+
+
+
+
 </styles>

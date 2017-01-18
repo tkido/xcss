@@ -6,8 +6,8 @@
 	They are used to determine the tag to which the setting applies.
 	Other attributes(in this example, x, y) are treated as simple values.	-->
 
-	<!-- Set text widget's default "fontsize" to "M" -->
-	<item type="text" fontsize="M" />
+	<!-- Set text widget's default "fontsize" to "S" -->
+	<item type="text" fontsize="S" />
 
 	<!-- Resize text fontsize with specific id -->
 	<item type="text" id="title" fontsize="L" />
@@ -17,8 +17,8 @@
 	<item type="text" class="night" fontcolor="WHITE"/>
 
 	<!-- It is possible to set classes semantically separated into "positions" and "colors", for example -->
-	<item type="text" class="left" x="0" y="0" />
-	<item type="text" class="right" x="400" y="0" />
+	<item type="text" class="left" x="0" />
+	<item type="text" class="right" x="400" />
 
 	<!-- Setting multiple classes. Applies to tags where all classes are set -->
 	<item type="text" class="day disabled" fontcolor="GRAY"/>
@@ -26,11 +26,11 @@
 
 	<!-- Setting child elements -->
 	<widgets>
-		<!-- Common background image on any screen -->
 		<item type="image" id="background" w="800" h="480" imageurl="@DNA/common/bg.png"/>
+		<!-- Common background image on any screen -->
 		<!-- This "item" tag is only the setting value of the "widgets" selector
 		Remember, tags just under the root(<styles> tag) are recognized as styles -->
-	<widgets>
+	</widgets>
 
 	<!-- in xcss file, all comments are ignored. -->
 	in xcss file, all texts are ignored.
