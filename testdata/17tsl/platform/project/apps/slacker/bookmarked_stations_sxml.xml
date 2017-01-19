@@ -3,53 +3,15 @@
 	</resources>
 
 	<widgets class="app">
-		<item type="itemgroup" id="sidemenu" direction="vertical" alignment="top" x="0" y="7" w="192" h="402" min-w="192" max-w="192" min-h="67" max-h="67" max-padding="1">
-			<item type="button" id="list_button" w="272" h="67" userstates="1">
-				<item type="image" id="button_bg" imageurl="@DNA/common/btn_submenu6.png" w="272" h="67"/>
-				<item type="image" id="button_icon" imageurl="asdf" w="80" h="67"/>
-				<item type="text" id="button_text" text="button" x="97" w="170" h="67" fontcolor="0xFFFFFFFF"/>
-				<states ref="sidemenu_button">
-					<state user="0" touch="disabled">
-						<update widget="button_bg" value0="134" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="button_bg" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="button_bg" value0="67" type="srcy"/>
-					</state>
-				</states>
-			</item>
-			<update widget="list_button" accessor="button" type="custom"/>
-			<update widget="button_text" accessor="label" type="text"/>
-			<update widget="button_text" accessor="sidemenu_text" type="textcolor"/>
-			<update widget="button_text" accessor="sidemenu_textsize" type="textsize"/>
-			<update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
-		</item>
-
+		<item type="itemgroup" id="sidemenu" />
+		
 		<item type="composite" x="272" y="0" w="528" h="416">
 			<!-- header area -->
 			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
 			<!-- title -->
 			<item type="text" id="header_text" x="20" w="266" h="84" fontcolor="0xFFFFFFFF" fontsize="30"/>
 
-			<!-- edit button -->
-			<item type="button" id="edit_button" x="314" w="114" h="76" userstates="1">
-				<item type="image" id="edit_image" w="120" h="76" imageurl="@DNA/common/btn_navigation_bar_small.png"/>
-				<item type="text" id="edit_text" x="10" y="27" w="100" h="26" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[SLACKER_TEXTBUTTON_EDIT]"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="edit_image" value0="152" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="edit_image" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="edit_image" value0="76" type="srcy"/>
-					</state>
-				</states>
-			</item>
-
+			<item type="button" id="edit_button" />
 			<item type="button" id="back_button" />
 
 			<!-- content area -->
