@@ -24,6 +24,7 @@ func convXML(path string, sets *Settings, ccs []string) {
 	fileName := fi.Name()
 
 	root := &Tag{}
+
 	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(&root)
 	conv(root, sets, ccs)
 
@@ -79,7 +80,7 @@ func conv(t *Tag, sets *Settings, ccs []string) {
 				// when tag's setting applies to multiple selectors,
 				// attributes are overwritten by stronger selectors,
 				// but children are appended
-				t.Children = append(set.Children, t.Children...)
+				t.Children = append(copyChildren(set.Children), t.Children...)
 			}
 		}
 	}

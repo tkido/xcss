@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/xml"
 	"io"
+	"log"
 )
 
 // Tag general tag of xml
@@ -12,6 +13,34 @@ type Tag struct {
 	Attr     []xml.Attr
 	Children []interface{}
 	From     From
+}
+
+// Copy returns copy of Tag
+func (t *Tag) Copy() *Tag {
+	bs, err := xml.Marshal(t)
+	if err != nil {
+		log.Fatal(err)
+	}
+	copy := &Tag{}
+	xml.NewDecoder(bytes.NewBuffer(bs)).Decode(copy)
+	copy.From = t.From
+	return copy
+}
+
+func copyChildren(cs []interface{}) []interface{} {
+	copy := []interface{}{}
+	for _, v := range cs {
+		switch v.(type) {
+		case *Tag:
+			child := v.(*Tag)
+			copy = append(copy, child.Copy())
+		case xml.CharData:
+			copy = append(copy, v.(xml.CharData))
+		case xml.Comment:
+			copy = append(copy, v.(xml.Comment))
+		}
+	}
+	return copy
 }
 
 // MarshalXML to XML from Tag

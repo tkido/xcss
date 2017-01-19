@@ -33,9 +33,8 @@ func (set *Setting) String() string {
 // Copy returns copy of Setting
 func (set *Setting) Copy() *Setting {
 	copy := Setting{}
-	// child elements of one selector may be replaced by same selector's one.
-	// but the element itself is never changed, so there is no problem with shallow copy
-	copy.Children = set.Children
+	// make a deep copy of Setting.Children
+	copy.Children = copyChildren(set.Children)
 
 	// make a deep copy of Setting.Map
 	var buf bytes.Buffer
