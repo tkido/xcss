@@ -15,9 +15,11 @@
 			<item type="box" id="highlight_box" w="272"/>
 			<item type="image" id="highlight_image" imageurl="@DNA/common/submenu6_selected.png" w="272" h="94"/>
 		</item>
+		<!-- app common sidemenu -->
+		<item type="itemgroup" id="sidemenu" />
 	</widgets>
 
-	<!-- app common sidemenu -->
+	<!-- app common sidemenu detail -->
 	<item type="itemgroup" id="sidemenu" direction="vertical" alignment="top" x="0" y="7" w="192" h="402" min-w="192" max-w="192" min-h="67" max-h="67" max-padding="1">
 		<item type="button" id="list_button" w="272" h="67" userstates="1">
 			<item type="image" id="button_bg" imageurl="@DNA/common/btn_submenu6.png" w="272" h="67"/>
@@ -42,6 +44,7 @@
 		<update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
 	</item>
 
+	<!-- Buttons -->
 	<!-- back button -->
 	<item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
 		<item type="image" id="back_image" imageurl="@DNA/common/btn_navigation_bar_back.png" w="94" h="76"/>

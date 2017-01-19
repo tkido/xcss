@@ -9,6 +9,29 @@
 			<item type="box" id="highlight_box" w="272"></item>
 			<item type="image" id="highlight_image" w="272" h="94" imageurl="@DNA/common/submenu6_selected.png"></item>
 		</item>
+		<item type="itemgroup" id="sidemenu" x="0" y="7" w="192" h="402" min-w="192" min-h="67" max-w="192" max-h="67" max-padding="1" direction="vertical" alignment="top">
+			<item type="button" id="list_button" w="272" h="67" userstates="1">
+				<item type="image" id="button_bg" w="272" h="67" imageurl="@DNA/common/btn_submenu6.png"></item>
+				<item type="image" id="button_icon" w="80" h="67" imageurl="asdf"></item>
+				<item type="text" id="button_text" x="97" w="170" h="67" fontcolor="0xFFFFFFFF" text="button"></item>
+				<states ref="sidemenu_button">
+					<state user="0" touch="disabled">
+						<update widget="button_bg" value0="134" type="srcy"></update>
+					</state>
+					<state user="0" touch="idle">
+						<update widget="button_bg" value0="0" type="srcy"></update>
+					</state>
+					<state user="0" touch="action">
+						<update widget="button_bg" value0="67" type="srcy"></update>
+					</state>
+				</states>
+			</item>
+			<update widget="list_button" accessor="button" type="custom"></update>
+			<update widget="button_text" accessor="label" type="text"></update>
+			<update widget="button_text" accessor="sidemenu_text" type="textcolor"></update>
+			<update widget="button_text" accessor="sidemenu_textsize" type="textsize"></update>
+			<update widget="button_icon" accessor="sidemenu_image" type="imageurl"></update>
+		</item>
 		<item type="composite" x="272" y="0" w="528" h="416">
 			<item type="image" id="content_bg_image" w="528" h="416" imageurl="@DNA/common/bg_contents.png"></item>
 			<item type="composite" x="8" y="6" w="160" h="160">

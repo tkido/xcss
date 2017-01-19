@@ -3,8 +3,6 @@
 	</resources>
 
 	<widgets class="app">
-		<item type="itemgroup" id="sidemenu" />
-		
 		<item type="composite" x="272" y="0" w="528" h="416">
 			<!-- header area -->
 			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
