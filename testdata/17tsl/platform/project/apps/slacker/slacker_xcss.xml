@@ -165,13 +165,84 @@
 		</states>
 	</item>
 
+	<!-- control button -->
+	<item type="button" id="btn_back" w="112" h="88" userstates="1">
+		<item type="image" id="image_back" w="112" h="88" imageurl="@DNA/common/btn_skip_back.png"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="image_back" value0="176" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="image_back" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="image_back" value0="88" type="srcy"/>
+			</state>
+		</states>
+	</item>
 
+	<item type="button" id="btn_playback" w="112" h="88" userstates="1">
+		<item type="image" id="image_playback" w="112" h="88" imageurl="@DNA/common/btn_play.png"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="image_playback" value0="176" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="image_playback" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="image_playback" value0="88" type="srcy"/>
+			</state>
+		</states>
+	</item>
 
+	<item type="button" id="btn_skip" w="112" h="88" userstates="1">
+		<item type="image" id="image_skip" w="112" h="88" imageurl="@DNA/common/btn_skip_forward.png"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="image_skip" value0="176" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="image_skip" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="image_skip" value0="88" type="srcy"/>
+			</state>
+		</states>
+	</item>
+	<item type="text" id="skip_count" w="30" fontcolor="0xFFFEFEFF" fontsize="26" alignment="center" />
 
-
-
-
-
+	<!-- bottom menu button -->
+	<item type="button" id="btn_ban" w="94" h="88" userstates="1">
+		<item type="image" id="image_ban" w="94" h="88" imageurl="@DNA/common/btn_lower_ban_off.png"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="image_ban" value0="176" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="image_ban" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="image_ban" value0="88" type="srcy"/>
+			</state>
+		</states>
+	</item>
+	
+	<item type="button" id="btn_heart" w="94" h="88" userstates="1">
+		<item type="image" id="image_heart" w="94" h="88" imageurl="@DNA/common/btn_lower_heart_off.png"/>
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="image_heart" value0="176" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="image_heart" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="image_heart" value0="88" type="srcy"/>
+			</state>
+		</states>
+	</item>
+</item>
 
 
 </styles>

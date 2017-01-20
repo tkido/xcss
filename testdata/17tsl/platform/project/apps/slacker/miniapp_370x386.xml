@@ -13,8 +13,8 @@
 			<item type="text" id="artist_name" x="20" y="228" w="330" h="24" alignment="center"></item>
 			<item type="text" id="station_name" x="20" y="260" w="330" h="24" alignment="center"></item>
 			<item type="text" id="status_text" x="20" y="190" w="330" h="30" alignment="center"></item>
-			<item type="button" id="btn_back" x="14" y="296" w="94" h="88" userstates="1">
-				<item type="image" id="image_back" w="94" h="88" imageurl="@DNA/common/btn_skip_back.png"></item>
+			<item type="button" id="btn_back" x="14" y="296" w="112" h="88" userstates="1">
+				<item type="image" id="image_back" w="112" h="88" imageurl="@DNA/common/btn_skip_back.png"></item>
 				<states>
 					<state user="0" touch="disabled">
 						<update widget="image_back" value0="176" type="srcy"></update>
@@ -55,7 +55,7 @@
 					</state>
 				</states>
 			</item>
-			<item type="text" id="skip_count" x="326" y="347" w="30" fontsize="26" fontcolor="0xFFFEFEFF" alignment="center" text="6"></item>
+			<item type="text" id="skip_count" x="326" y="347" w="30" fontsize="26" fontcolor="0xFFFEFEFF" alignment="center"></item>
 			<item type="image" id="loadingbgimage" y="50" w="370" h="336" src-y="50" imageurl="@DNA/common/bg_miniplayer_half.png"></item>
 			<item type="text" id="loading" x="0" y="50" w="370" h="336" fontsize="26" alignment="center"></item>
 		</item>

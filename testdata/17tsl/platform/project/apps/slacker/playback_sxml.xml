@@ -26,80 +26,14 @@
 			<item type="text" id="prog_r_text" x="346" y="265" w="148" fontcolor="0xFF909091" fontsize="24" alignment="right"/>
 
 			<!-- button -->
-			<item type="button" id="btn_back" x="82" y="174" w="112" h="88" userstates="1">
-				<item type="image" id="image_back" w="112" h="88" imageurl="@DNA/common/btn_skip_back.png"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="image_back" value0="176" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="image_back" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="image_back" value0="88" type="srcy"/>
-					</state>
-				</states>
-			</item>
-			<item type="button" id="btn_playback" x="207" y="174" w="112" h="88" userstates="1">
-				<item type="image" id="image_playback" w="112" h="88" imageurl="@DNA/common/btn_play.png"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="image_playback" value0="176" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="image_playback" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="image_playback" value0="88" type="srcy"/>
-					</state>
-				</states>
-			</item>
-			<item type="button" id="btn_skip" x="336" y="174" w="112" h="88" userstates="1">
-				<item type="image" id="image_skip" w="112" h="88" imageurl="@DNA/common/btn_skip_forward.png"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="image_skip" value0="176" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="image_skip" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="image_skip" value0="88" type="srcy"/>
-					</state>
-				</states>
-			</item>
-			<item type="text" id="skip_count" x="418" y="225" w="30" fontcolor="0xFFFEFEFF" fontsize="26" alignment="center"/>
+			<item type="button" id="btn_back" x="82" y="174" />
+			<item type="button" id="btn_playback" x="207" y="174" />
+			<item type="button" id="btn_skip" x="336" y="174" />
+			<item type="text" id="skip_count" x="418" y="225" />
 
 			<!-- bottom menu -->
-			<item type="button" id="btn_ban" x="21" y="316" w="94" h="88" userstates="1">
-				<item type="image" id="image_ban" w="94" h="88" imageurl="@DNA/common/btn_lower_ban_off.png"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="image_ban" value0="176" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="image_ban" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="image_ban" value0="88" type="srcy"/>
-					</state>
-				</states>
-			</item>
-			<item type="button" id="btn_heart" x="119" y="316" w="94" h="88" userstates="1">
-				<item type="image" id="image_heart" w="94" h="88" imageurl="@DNA/common/btn_lower_heart_off.png"/>
-				<states>
-					<state user="0" touch="disabled">
-						<update widget="image_heart" value0="176" type="srcy"/>
-					</state>
-					<state user="0" touch="idle">
-						<update widget="image_heart" value0="0" type="srcy"/>
-					</state>
-					<state user="0" touch="action">
-						<update widget="image_heart" value0="88" type="srcy"/>
-					</state>
-				</states>
-			</item>
-		</item>
+			<item type="button" id="btn_ban" x="21" y="316" />
+			<item type="button" id="btn_heart" x="119" y="316" />
 
 	</widgets>
 </pane>
