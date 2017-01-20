@@ -52,7 +52,6 @@
 	<item type="image" id="scrollbar_bg_image" imageurl="@DNA/common/bg_scroll_bar.png" x="464" y="76" w="64" h="340"/>
 	<item type="text" id="noresult_text" y="76" w="464" h="68" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[GLOBAL_NO_RESULT]"/>
 
-
 	<!-- Buttons -->
 	<!-- back button -->
 	<item type="button" id="back_button" x="434" w="94" h="76" userstates="1">
@@ -120,5 +119,59 @@
 			</state>
 		</states>
 	</item>
+
+	<!-- Scrollable list -->
+	<!-- scrollable common setting -->
+	<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">
+		<scrollbar side="right" size="64">
+			<top type="image" id="scrollbar_top" imageurl="@DNA/common/btn_scroll_top.png" w="64" h="74" src-h="74"/>
+			<thumb type="image" id="scrollbar_thumb" imageurl="@DNA/common/bg_scroll_marker.png" w="64" h="48"/>
+			<bottom type="image" id="scrollbar_bottom" imageurl="@DNA/common/btn_scroll_btm.png" w="64" h="74" src-h="74"/>
+		</scrollbar>
+	</item>
+	<!-- content_list common setting -->
+	<item type="list" id="content_list" direction="top" fill="normal-page" visiblecolumns="1" itemwidth="464" />
+	<!-- case row = 5. -->
+	<item type="list" id="content_list" class="row5" visiblerows="5" itemheight="68" />
+	<item type="list" id="content_list" class="row4" visiblerows="4" itemheight="85" />
+	<!-- case row = 4. now for search result screen only -->
+	<item type="list" id="content_list" class="row4" visiblerows="4" itemheight="85" />
+	<!-- list_button common setting -->
+	<item type="button" id="list_button" class="row5" w="464" h="68" userstates="1" emptydraw="true">
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="list_bg_image" value0="136" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="list_bg_image" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="list_bg_image" value0="68" type="srcy"/>
+			</state>
+		</states>
+	</item>
+	<!-- case row = 4. now for search result screen only -->
+	<item type="button" id="list_button" class="row4" w="464" h="85" userstates="1" emptydraw="true">
+		<states>
+			<state user="0" touch="disabled">
+				<update widget="list_bg_image" value0="170" type="srcy"/>
+			</state>
+			<state user="0" touch="idle">
+				<update widget="list_bg_image" value0="0" type="srcy"/>
+			</state>
+			<state user="0" touch="action">
+				<update widget="list_bg_image" value0="85" type="srcy"/>
+			</state>
+		</states>
+	</item>
+
+
+
+
+
+
+
+
+
 
 </styles>

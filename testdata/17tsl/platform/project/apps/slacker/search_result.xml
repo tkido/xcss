@@ -73,11 +73,6 @@
 				</scrollbar>
 				<item type="list" id="content_list" itemwidth="464" itemheight="85" direction="top" fill="normal-page" visiblerows="4" visiblecolumns="1">
 					<item type="button" id="list_button" w="464" h="85" userstates="1" emptydraw="true">
-						<item type="image" id="list_bg_image" x="0" y="0" w="464" h="85" imageurl="@DNA/common/btn_list4_full.png"></item>
-						<item type="image" id="list_icon_bg" w="85" h="85" imageurl=""></item>
-						<item type="image" id="list_icon" x="6" y="7" w="71" h="71" imageurl=""></item>
-						<item type="text" id="list_text1" x="90" y="15" w="356" fontsize="26" fontcolor="0xFFFFFFFF"></item>
-						<item type="text" id="list_text2" x="90" y="49" w="356" fontsize="24" fontcolor="0xFFFFFFFF"></item>
 						<states>
 							<state user="0" touch="disabled">
 								<update widget="list_bg_image" value0="170" type="srcy"></update>
@@ -89,6 +84,11 @@
 								<update widget="list_bg_image" value0="85" type="srcy"></update>
 							</state>
 						</states>
+						<item type="image" id="list_bg_image" x="0" y="0" w="464" h="85" imageurl="@DNA/common/btn_list4_full.png"></item>
+						<item type="image" id="list_icon_bg" w="85" h="85" imageurl=""></item>
+						<item type="image" id="list_icon" x="6" y="7" w="71" h="71" imageurl=""></item>
+						<item type="text" id="list_text1" x="90" y="15" w="356" fontsize="26" fontcolor="0xFFFFFFFF"></item>
+						<item type="text" id="list_text2" x="90" y="49" w="356" fontsize="24" fontcolor="0xFFFFFFFF"></item>
 					</item>
 					<update widget="list_icon_bg" accessor="list_icon_bg4" type="imageurl"></update>
 					<update widget="list_icon" accessor="image" type="imageurl"></update>

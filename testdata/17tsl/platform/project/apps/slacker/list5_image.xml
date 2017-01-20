@@ -59,10 +59,6 @@
 				</scrollbar>
 				<item type="list" id="content_list" itemwidth="464" itemheight="68" direction="top" fill="normal-page" visiblerows="5" visiblecolumns="1">
 					<item type="button" id="list_button" w="464" h="68" userstates="1" emptydraw="true">
-						<item type="image" id="list_bg_image" w="464" h="68" imageurl="@DNA/common/btn_list5_full.png"></item>
-						<item type="image" id="list_icon_bg" w="68" h="68" imageurl=""></item>
-						<item type="image" id="list_icon" x="6" y="6" w="56" h="56" imageurl=""></item>
-						<item type="text" id="list_text" x="74" y="19" w="372" fontsize="30" fontcolor="0xFF000000"></item>
 						<states>
 							<state user="0" touch="disabled">
 								<update widget="list_bg_image" value0="136" type="srcy"></update>
@@ -74,6 +70,10 @@
 								<update widget="list_bg_image" value0="68" type="srcy"></update>
 							</state>
 						</states>
+						<item type="image" id="list_bg_image" w="464" h="68" imageurl="@DNA/common/btn_list5_full.png"></item>
+						<item type="image" id="list_icon_bg" w="68" h="68" imageurl=""></item>
+						<item type="image" id="list_icon" x="6" y="6" w="56" h="56" imageurl=""></item>
+						<item type="text" id="list_text" x="74" y="19" w="372" fontsize="30" fontcolor="0xFF000000"></item>
 					</item>
 					<update widget="list_icon_bg" accessor="list_icon_bg5" type="imageurl"></update>
 					<update widget="list_icon" accessor="image" type="imageurl"></update>
