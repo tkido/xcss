@@ -34,7 +34,7 @@
 		</item>
 		<item type="composite" x="272" y="0" w="528" h="416">
 			<item type="image" id="header_bg_image" y="0" w="528" h="84" imageurl="@DNA/common/bg_navigation_bar_submenu.png"></item>
-			<item type="text" id="header_text" x="20" w="482" h="84" fontsize="30" fontcolor="0xFFFFFFFF"></item>
+			<item type="text" id="header_text" x="20" w="266" h="84" fontsize="30" fontcolor="0xFFFFFFFF"></item>
 			<item type="image" id="scrollbar_bg_image" x="464" y="76" w="64" h="340" imageurl="@DNA/common/bg_scroll_bar.png"></item>
 			<item type="text" id="noresult_text" y="76" w="464" h="68" fontsize="26" fontcolor="0xFFFFFFFF" alignment="center" text="$[GLOBAL_NO_RESULT]"></item>
 			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">

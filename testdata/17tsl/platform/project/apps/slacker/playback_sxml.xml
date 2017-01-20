@@ -4,8 +4,7 @@
 
 	<widgets class="app">
 
-		<item type="composite" x="272" y="0" w="528" h="416">
-			<!-- content area -->
+		<item type="composite">
 			<item type="image" id="content_bg_image" imageurl="@DNA/common/bg_contents.png" w="528" h="416"/>
 
 			<!-- song info -->

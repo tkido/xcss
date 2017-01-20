@@ -64,7 +64,7 @@
 				</states>
 			</item>
 			<item type="image" id="scrollbar_bg_image" x="464" y="76" w="64" h="340" imageurl="@DNA/common/bg_scroll_bar.png"></item>
-			<item type="text" id="noresult_text" y="76" w="464" h="85" fontsize="26" fontcolor="0xFFFFFFFF" alignment="center" text="$[GLOBAL_NO_RESULT]"></item>
+			<item type="text" id="noresult_text" y="76" w="464" h="68" fontsize="26" fontcolor="0xFFFFFFFF" alignment="center" text="$[GLOBAL_NO_RESULT]"></item>
 			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">
 				<scrollbar side="right" size="64">
 					<top type="image" id="scrollbar_top" w="64" h="74" src-h="74" imageurl="@DNA/common/btn_scroll_top.png"></top>

@@ -1,5 +1,5 @@
 <styles>
-	<!-- common resource -->
+	<!-- slacker common resource -->
 	<resources>
 		<require type="Slacker_ListData" url="@APP/slacker2/data/data_slackerlistdata.ujbc" />
 	</resources>
@@ -43,6 +43,15 @@
 		<update widget="button_text" accessor="sidemenu_textsize" type="textsize"/>
 		<update widget="button_icon" accessor="sidemenu_image" type="imageurl"/>
 	</item>
+	<!-- content area app -->
+	<item type="composite" class="app" x="272" y="0" w="528" h="416" />
+
+	<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
+	<item type="text" id="header_text" x="20" w="266" h="84" fontcolor="0xFFFFFFFF" fontsize="30"/>
+
+	<item type="image" id="scrollbar_bg_image" imageurl="@DNA/common/bg_scroll_bar.png" x="464" y="76" w="64" h="340"/>
+	<item type="text" id="noresult_text" y="76" w="464" h="68" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[GLOBAL_NO_RESULT]"/>
+
 
 	<!-- Buttons -->
 	<!-- back button -->

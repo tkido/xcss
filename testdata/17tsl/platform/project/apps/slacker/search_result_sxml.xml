@@ -3,21 +3,16 @@
 	</resources>
 
 	<widgets class="app">
+		<item type="composite">
+			<item type="image" id="header_bg_image" />
 
-		<item type="composite" x="272" y="0" w="528" h="416">
-			<!-- header area -->
-			<item type="image" id="header_bg_image" imageurl="@DNA/common/bg_navigation_bar_submenu.png" y="0" w="528" h="84"/>
-
-			<!-- edit button -->
 			<item type="button" id="search_button" />
 			<item type="editbox" id="search_editbox" />
 
 			<item type="button" id="back_button" />
 
-			<!-- content area -->
-			<item type="image" id="scrollbar_bg_image" imageurl="@DNA/common/bg_scroll_bar.png" x="464" y="76" w="64" h="340"/>
-			<!-- noresult message -->
-			<item type="text" id="noresult_text" y="76" w="464" h="85" fontcolor="0xFFFFFFFF" fontsize="26" alignment="center" text="$[GLOBAL_NO_RESULT]"/>
+			<item type="image" id="scrollbar_bg_image" />
+			<item type="text" id="noresult_text" />
 
 			<item type="scrollable" id="scroll" y="76" w="464" h="340" number="1" direction="vertical" scrollrate="240">
 				<scrollbar side="right" size="64">
